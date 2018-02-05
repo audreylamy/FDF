@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 13:47:27 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/02 10:55:45 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/05 10:51:35 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ matrix4_t  matrix_identity(void)
 
 /*MATRICE TRANSLATION*/
 
-matrix4_t  matrix_translation_center(t_vecteur4 offset)
+matrix4_t  matrix_translation(t_vecteur4 offset)
 {
     return matrix4((t_matrix)
 		{1, 0, 0, offset.x1,

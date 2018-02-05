@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Deydou <Deydou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 10:39:04 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/03 18:45:00 by Deydou           ###   ########.fr       */
+/*   Updated: 2018/02/05 12:52:30 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <stdio.h>
 
-void ft_create_new_image(t_env *tmp)
+void ft_redraw_image(t_env *tmp, int keycode)
 {
 	mlx_clear_window(tmp->mlx, tmp->win);
 	tmp->img.img_ptr = mlx_new_image(tmp->mlx, WINDOW_L, WINDOW_H);
 	tmp->img.data = (int*)mlx_get_data_addr(tmp->img.img_ptr, &tmp->img.bpp, &tmp->img.size_bits, &tmp->img.endian);
-	ft_draw_line_horiz(tmp);
-	ft_draw_line_vertical(tmp);
+	ft_transform_map(tmp, keycode);
  	mlx_put_image_to_window(tmp->mlx, tmp->win, tmp->img.img_ptr, 0, 0);
 }
 
@@ -31,196 +30,51 @@ int my_key_funct(int keycode, t_env *tmp)
 		mlx_destroy_image(tmp->mlx, tmp->img.img_ptr);
 		exit(0);
 	}
-	if (keycode == UP)
-	{	
-		tmp->new_move_y -= 20;
-		ft_create_new_image(tmp);
-	}
-	if (keycode == RIGHT)
-	{	
-		tmp->new_move_x += 20;
-		ft_create_new_image(tmp);
-	}
-	if (keycode == DOWN)
-	{	
-		tmp->new_move_y += 20;
-		ft_create_new_image(tmp);
-	}
-	if (keycode == LEFT)
-	{	
-		tmp->new_move_x -= 20;
-		ft_create_new_image(tmp);
-	}
-	if (keycode == ROTATION_X_DOWN) // 2
-	{	
-		ft_transformation_event(tmp, keycode);
-		ft_create_new_image(tmp);
-	}
-	if (keycode == ROTATION_X_UP) // 8
-	{	
-		ft_transformation_event(tmp, keycode);
-		ft_create_new_image(tmp);
-	}
-	if (keycode == ROTATION_Z_RIGHT) // 6
-	{	
-		ft_transformation_event(tmp, keycode);
-		ft_create_new_image(tmp);
-	}
-	if (keycode == ROTATION_Z_LEFT) // 4
-	{	
-		ft_transformation_event(tmp, keycode);
-		ft_create_new_image(tmp);
-	}
-	if (keycode == ROTATION_Y_A) // 0
-	{	
-		ft_transformation_event(tmp, keycode);
-		ft_create_new_image(tmp);
-	}
-	if (keycode == ROTATION_Y_W) // 13
-	{	
-		ft_transformation_event(tmp, keycode);
-		ft_create_new_image(tmp);
+
+	if (keycode == UP || keycode == DOWN || keycode == RIGHT ||
+		keycode == LEFT)
+		{
+			event_translation(keycode, tmp);
+			ft_redraw_image(tmp, keycode);
+		}
+	if (keycode == ROTATION_X_DOWN || keycode == ROTATION_X_UP || keycode == ROTATION_Z_RIGHT ||
+		keycode == ROTATION_Z_LEFT || keycode == ROTATION_Y_A || keycode == ROTATION_Y_W)
+		{
+			event_rotation(keycode, tmp);
+			ft_redraw_image(tmp, keycode);
+		}
+	if (keycode == RESET)
+	{
+		ft_redraw_image(tmp, keycode);
 	}
 	return(0);
 }
 
-// int my_mouse_funct(int keycode, t_env *tmp)
-// {
-// 	printf("key event %d\n", keycode);
-// 	if (keycode == CLIC_LEFT)
-// 	{	
-// 		ft_transformation_event(tmp);
-// 		ft_create_new_image(tmp);
-// 	}
-// 	return(0);
-// }
-
-t_vecteur4 ft_rotationx1(int x, int y, int z, int w, int i)
+void	event_translation(int keycode, t_env *tmp)
 {
-	t_vecteur4 	vecteur_rotation_x;
-	matrix4_t 	m_rotation_x;
-	t_vecteur4 resultat;
-	
-	m_rotation_x = matrix_rotationX((10 * PI) / 180);
-	resultat = create_vecteur4(x, y, z, w);
-	resultat = ft_cal_rotationX(resultat, m_rotation_x);
-	return(resultat);
+    if (keycode == UP)
+		tmp->new_move_y -= 10;
+    if (keycode == DOWN)
+		tmp->new_move_y += 10;
+    if (keycode == RIGHT)
+		tmp->new_move_x += 10;
+    if (keycode == LEFT)
+		tmp->new_move_x -= 10;
 }
 
-t_vecteur4 ft_rotationx2(int x, int y, int z, int w, int i)
+void	event_rotation(int keycode, t_env *tmp)
 {
-	t_vecteur4 	vecteur_rotation_x;
-	matrix4_t 	m_rotation_x;
-	t_vecteur4 resultat;
-	
-	m_rotation_x = matrix_rotationX((-10 * PI) / 180);
-	resultat = create_vecteur4(x, y, z, w);
-	resultat = ft_cal_rotationX(resultat, m_rotation_x);
-	return(resultat);
-}
-
-t_vecteur4 ft_rotationz1(int x, int y, int z, int w, int i)
-{
-	t_vecteur4 	vecteur_rotation_z;
-	matrix4_t 	m_rotation_z;
-	t_vecteur4 resultat;
-	
-	m_rotation_z = matrix_rotationZ((1.0 * PI) / 180);
-	resultat = create_vecteur4(x, y, z, w);
-	resultat = ft_cal_rotationZ(resultat, m_rotation_z);
-	return(resultat);
-}
-
-t_vecteur4 ft_rotationz2(int x, int y, int z, int w, int i)
-{
-	t_vecteur4 	vecteur_rotation_z;
-	matrix4_t 	m_rotation_z;
-	t_vecteur4 resultat;
-	
-	m_rotation_z = matrix_rotationZ((-1.0 * PI) / 180);
-	resultat = create_vecteur4(x, y, z, w);
-	resultat = ft_cal_rotationZ(resultat, m_rotation_z);
-	return(resultat);
-}
-
-t_vecteur4 ft_rotationy1(int x, int y, int z, int w, int i)
-{
-	t_vecteur4 	vecteur_rotation_y;
-	matrix4_t 	m_rotation_y;
-	t_vecteur4 resultat;
-	
-	m_rotation_y = matrix_rotationY((10.0 * PI) / 180);
-	resultat = create_vecteur4(x, y, z, w);
-	resultat = ft_cal_rotationY(resultat, m_rotation_y);
-	return(resultat);
-}
-
-t_vecteur4 ft_rotationy2(int x, int y, int z, int w, int i)
-{
-	t_vecteur4 	vecteur_rotation_y;
-	matrix4_t 	m_rotation_y;
-	t_vecteur4 resultat;
-	
-	m_rotation_y = matrix_rotationY((-10.0 * PI) / 180);
-	resultat = create_vecteur4(x, y, z, w);
-	resultat = ft_cal_rotationY(resultat, m_rotation_y);
-	return(resultat);
-}
-
-// t_vecteur4 ft_homothetie_event(int x, int y, int z, int w, int i)
-// {
-// 	t_vecteur4 	vecteur_homothetie;
-// 	matrix4_t 	m_homothetie;
-// 	t_vecteur4 resultat;
-	
-// 	vecteur_homothetie = create_vecteur4(2, 1, 1, 1);
-// 	m_homothetie = matrix_homothetie(vecteur_homothetie);
-
-// 	resultat = create_vecteur4(x, y, z, w);
-
-// 	resultat = ft_cal_homothetie(resultat, m_homothetie);
-// 	return(resultat);
-// }
-
-void ft_transformation_event(t_env *tmp, int keycode)
-{
-	int i;
-	int j;
-	int x0;
-	int y0;
-	int z0;
-	int w0;
-	t_vecteur4 resultat;
-
-	i = 0;
-	while (i < tmp->nb_line)
-	{
-		j = 0;
-		while (j < tmp->nb_col)
-		{
-			x0 = tmp->map_buffer[i][j][0];
-			y0 = tmp->map_buffer[i][j][1];
-			z0 = tmp->map_buffer[i][j][3];
-			w0 = tmp->map_buffer[i][j][4];
-			if (keycode == ROTATION_X_DOWN)
-				resultat = ft_rotationx1(x0, y0, z0, w0, i);
-			else if (keycode == ROTATION_X_UP)
-				resultat = ft_rotationx2(x0, y0, z0, w0, i);
-			else if (keycode == ROTATION_Z_RIGHT)
-				resultat = ft_rotationz1(x0, y0, z0, w0, i);
-			else if (keycode == ROTATION_Z_LEFT)
-				resultat = ft_rotationz2(x0, y0, z0, w0, i);
-			else if (keycode == ROTATION_Y_A)
-				resultat = ft_rotationy1(x0, y0, z0, w0, i);
-			else if (keycode == ROTATION_Y_W)
-				resultat = ft_rotationy2(x0, y0, z0, w0, i);
-			tmp->map_buffer[i][j][0] = resultat.x1;
-			tmp->map_buffer[i][j][1] = resultat.y1;
-			tmp->map_buffer[i][j][2] = resultat.z1;
-			tmp->map_buffer[i][j][3] = resultat.w1;
-			j++;
-		}
-		i++;
-	}
+    if (keycode == ROTATION_X_DOWN)
+		tmp->move_rotation_x -= 5;
+    if (keycode == ROTATION_X_UP)
+		tmp->move_rotation_x += 5;
+    if (keycode == ROTATION_Z_RIGHT)
+		tmp->move_rotation_y += 5;
+    if (keycode == ROTATION_Z_LEFT)
+		tmp->move_rotation_y -= 5;
+	if (keycode == ROTATION_Y_A)
+		tmp->move_rotation_z += 5;
+	if (keycode == ROTATION_Y_W)
+		tmp->move_rotation_z -= 5;
 }
 

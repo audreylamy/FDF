@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Deydou <Deydou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 11:49:43 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/03 18:31:06 by Deydou           ###   ########.fr       */
+/*   Updated: 2018/02/05 12:51:20 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define ROTATION_Y_A 0
 # define ROTATION_Y_W 13
 # define EXIT 53
+# define RESET 49
 
 /*DEFINE EVENTS MOUSE FUNCT*/
 # define SCROLL_UP 4
@@ -89,6 +90,9 @@ typedef struct	s_env
 	int	***map_buffer;
 	int new_move_y;
 	int new_move_x;
+	int move_rotation_x;
+	int move_rotation_y;
+	int move_rotation_z;
 	int nb_line;
 	int nb_col;
 }				t_env;
@@ -108,18 +112,16 @@ void  ft_get_coord(char *line, t_env *tmp);
 
 /*IMAGE*/
 void ft_create_image(t_env *tmp);
-void ft_create_new_image(t_env *tmp);
+void ft_create_new_image(t_env *tmp, int keycode);
 void fill_pixel(t_env *tmp, int x, int y, int color);
 
 /*BRESENHAM*/
-void ft_transform_map(t_env *tmp);
+void ft_transform_map(t_env *tmp, int keycode);
 void ft_draw_line_horiz(t_env *tmp);
 void ft_draw_line_vertical(t_env *tmp);
 void print_horiz_line(t_env *tmp, int i, int j);
 void print_vertical_line(t_env *tmp, int i, int j);
 void ft_bresenham(int x0, int y0, int x1, int y1, t_env *tmp);
-// void ft_bresenham1(t_algob *b, t_env *tmp, int x0, int y0);
-// void ft_bresenham2(t_algob *b, t_env *tmp, int x0, int y0);
 void ft_bre_1(t_algob *b, t_env *tmp, int x0, int y0);
 void ft_bre_2(t_algob *b, t_env *tmp, int x0, int y0);
 
@@ -164,14 +166,14 @@ typedef union
 
 matrix4_t  matrix4(t_matrix m);
 matrix4_t  matrix_identity(void);
-matrix4_t  matrix_translation_center(t_vecteur4 vecteur);
+matrix4_t  matrix_translation(t_vecteur4 vecteur);
 matrix4_t  matrix_homothetie(t_vecteur4 homo);
 matrix4_t  matrix_rotationX(float alpha);
 matrix4_t  matrix_rotationY(float alpha);
 matrix4_t  matrix_rotationZ(float alpha);
 matrix4_t  matrix_projection(float angle, float ratio, float near, float far); 
 t_vecteur4 create_vecteur4(int x, int y, int z, int w);
-t_vecteur4 ft_transformation(int x, int y, int z, int w, int i, t_env *tmp);
+t_vecteur4 ft_create_transformation(int x, int y, int z, int w, int i, t_env *tmp);
 t_vecteur4 ft_cal_translation(t_vecteur4 vecteur2, matrix4_t matrix_translation);
 t_vecteur4 ft_cal_rotationX(t_vecteur4 vecteur, matrix4_t matrix_rotationX);
 t_vecteur4 ft_cal_rotationY(t_vecteur4 vecteur, matrix4_t matrix_rotationY);
@@ -181,11 +183,7 @@ t_vecteur4 ft_cal_projection(t_vecteur4 vecteur, matrix4_t matrix_homothetie);
 void ft_print_matrix(matrix4_t matrix);
 
 /*NEW_EVENTS_TRANSFORMATION*/
-void ft_transformation_event(t_env *tmp, int keycode);
-t_vecteur4 ft_rotationx1(int x, int y, int z, int w, int i);
-t_vecteur4 ft_rotationx2(int x, int y, int z, int w, int i);
-t_vecteur4 ft_rotationz1(int x, int y, int z, int w, int i);
-t_vecteur4 ft_rotationz2(int x, int y, int z, int w, int i);
-t_vecteur4 ft_homothetie_event(int x, int y, int z, int w, int i);
+void event_translation(int keycode, t_env *tmp);
+void event_rotation(int keycode, t_env *tmp);
 
 #endif
