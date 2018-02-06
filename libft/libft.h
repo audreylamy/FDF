@@ -6,13 +6,12 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 16:05:27 by alamy             #+#    #+#             */
-/*   Updated: 2017/12/22 17:54:52 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/06 13:20:57 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-
 
 # include <string.h>
 # include <unistd.h>

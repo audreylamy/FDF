@@ -6,15 +6,15 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 11:49:43 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/05 12:51:20 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/06 14:48:18 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 # define BUFF_SIZE 32
-# define WINDOW_L 800
-# define WINDOW_H 600
+# define WINDOW_L 1500
+# define WINDOW_H 1000
 # define TILE_WIDTH 25
 # define TILE_HEIGHT 25
 # define PI 3.14159265359
@@ -42,6 +42,8 @@
 # define ROTATION_Y_W 13
 # define EXIT 53
 # define RESET 49
+# define ZOOM_MOINS 78
+# define ZOOM_PLUS 69
 
 /*DEFINE EVENTS MOUSE FUNCT*/
 # define SCROLL_UP 4
@@ -51,6 +53,7 @@
 # define CLIC_MIDDLE 3
 
 //GNL
+
 typedef struct	s_val
 {
 	int			i;
@@ -93,12 +96,10 @@ typedef struct	s_env
 	int move_rotation_x;
 	int move_rotation_y;
 	int move_rotation_z;
+	float zoom;
 	int nb_line;
 	int nb_col;
 }				t_env;
-
-// GNL
-int				gnl(const int fd, char **line);
 
 /*PARSING*/
 int main(int argc, char **argv);
@@ -185,5 +186,6 @@ void ft_print_matrix(matrix4_t matrix);
 /*NEW_EVENTS_TRANSFORMATION*/
 void event_translation(int keycode, t_env *tmp);
 void event_rotation(int keycode, t_env *tmp);
+void event_zoom(int keycode, t_env *tmp);
 
 #endif

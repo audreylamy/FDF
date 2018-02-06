@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 10:39:04 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/05 12:52:30 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/06 14:22:50 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ int my_key_funct(int keycode, t_env *tmp)
 			event_rotation(keycode, tmp);
 			ft_redraw_image(tmp, keycode);
 		}
+	if (keycode == ZOOM_PLUS || keycode == ZOOM_MOINS)
+	{
+		event_zoom(keycode, tmp);
+		ft_redraw_image(tmp, keycode);
+	}
 	if (keycode == RESET)
 	{
 		ft_redraw_image(tmp, keycode);
@@ -53,28 +58,35 @@ int my_key_funct(int keycode, t_env *tmp)
 void	event_translation(int keycode, t_env *tmp)
 {
     if (keycode == UP)
-		tmp->new_move_y -= 10;
+			tmp->new_move_y -= 10;
     if (keycode == DOWN)
-		tmp->new_move_y += 10;
+			tmp->new_move_y += 10;
     if (keycode == RIGHT)
-		tmp->new_move_x += 10;
+			tmp->new_move_x += 10;
     if (keycode == LEFT)
-		tmp->new_move_x -= 10;
+			tmp->new_move_x -= 10;
 }
 
 void	event_rotation(int keycode, t_env *tmp)
 {
     if (keycode == ROTATION_X_DOWN)
-		tmp->move_rotation_x -= 5;
+			tmp->move_rotation_x -= 5;
     if (keycode == ROTATION_X_UP)
-		tmp->move_rotation_x += 5;
+			tmp->move_rotation_x += 5;
     if (keycode == ROTATION_Z_RIGHT)
-		tmp->move_rotation_y += 5;
+			tmp->move_rotation_y += 5;
     if (keycode == ROTATION_Z_LEFT)
-		tmp->move_rotation_y -= 5;
-	if (keycode == ROTATION_Y_A)
-		tmp->move_rotation_z += 5;
-	if (keycode == ROTATION_Y_W)
-		tmp->move_rotation_z -= 5;
+			tmp->move_rotation_y -= 5;
+		if (keycode == ROTATION_Y_A)
+			tmp->move_rotation_z += 5;
+		if (keycode == ROTATION_Y_W)
+			tmp->move_rotation_z -= 5;
 }
 
+void event_zoom(int keycode, t_env *tmp)
+{
+		if (keycode == ZOOM_PLUS)
+			tmp->zoom += 1.0;
+		if (keycode == ZOOM_MOINS)
+			tmp->zoom -= 1.0;
+}

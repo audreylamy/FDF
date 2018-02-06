@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 09:43:19 by alamy             #+#    #+#             */
-/*   Updated: 2017/11/17 18:51:23 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/06 13:28:12 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 char	*ft_strsub(const char *s, unsigned int start, size_t len)
 {
-	char			*copys;
+	char			*str;
 	unsigned int	i;
 
-	i = 0;
 	if (!s)
-		return (0);
-	copys = (char *)malloc(sizeof(*copys) * (len + 1));
-	if (!copys)
 		return (NULL);
-	while (i < len)
+	i = 0;
+	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	while ((i < len) && (s[start] != '\0'))
 	{
-		copys[i] = s[start + i];
+		str[i] = s[start];
+		start++;
 		i++;
 	}
-	copys[i] = '\0';
-	return (copys);
+	str[i] = '\0';
+	return (str);
 }

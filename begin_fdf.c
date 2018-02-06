@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 13:43:03 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/05 13:00:34 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/06 14:52:42 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,32 @@ void fill_pixel(t_env *tmp, int x, int y, int color)
 t_vecteur4 ft_create_transformation(int x, int y, int z, int w, int i, t_env *tmp)
 {
 	t_vecteur4 	vecteur_trans;
+	
 	matrix4_t 	m_translation;
 	matrix4_t 	m_rotationX;
 	matrix4_t 	m_rotationY;
 	matrix4_t 	m_rotationZ;
+	matrix4_t 	m_homo;
+	t_vecteur4  vecteur_homo;
 	// matrix4_t	m_projection;
 	t_vecteur4 	resultat;
 
- 	ft_putnbr(tmp->move_rotation_x);
 	vecteur_trans = create_vecteur4((WINDOW_L / 2) - ((tmp->nb_col * TILE_WIDTH) / 2), 
-	(WINDOW_H / 2) - ((tmp->nb_line * TILE_HEIGHT) / 2), 0, 1);
+	(WINDOW_H / 2) - ((tmp->nb_line * TILE_HEIGHT) / 2), 0.0, 1.0);
 	m_translation = matrix_translation(vecteur_trans);
+	vecteur_homo = create_vecteur4(1.0 + tmp->zoom, 1.0 + tmp->zoom, 1.0 + tmp->zoom , 1.0);
+	m_homo = matrix_homothetie(vecteur_homo);
 	m_rotationX = matrix_rotationX((55.0 + tmp->move_rotation_x) * PI / 180);
 	m_rotationY = matrix_rotationY((0.0 + tmp->move_rotation_y) * PI / 180);
 	m_rotationZ = matrix_rotationZ((4.0 + tmp->move_rotation_z) * PI / 180);
-	//m_projection = matrix_projection(100.0 * PI / 180, WINDOW_L/WINDOW_H ,1.0, 100.0);
+	// m_projection = matrix_projection(100.0 * PI / 180, WINDOW_L/WINDOW_H ,1.0, 100.0);
 
 	resultat = create_vecteur4(x, y, z, w);
 
 	resultat = ft_cal_rotationX(resultat, m_rotationX);
 	resultat = ft_cal_rotationY(resultat, m_rotationY);
 	resultat = ft_cal_rotationZ(resultat, m_rotationZ);
+	resultat = ft_cal_homothetie(resultat, m_homo);
 	resultat = ft_cal_translation(resultat, m_translation);
 	// resultat = ft_cal_projection(resultat, m_projection);
 	return(resultat);
@@ -66,14 +71,19 @@ t_vecteur4 ft_reset_transformation(int x, int y, int z, int w, int i, t_env *tmp
 	matrix4_t 	m_rotationX;
 	matrix4_t 	m_rotationY;
 	matrix4_t 	m_rotationZ;
+	matrix4_t 	m_homo;
+	t_vecteur4  vecteur_homo;
 	// matrix4_t	m_projection;
 	t_vecteur4 	resultat;
 
 	tmp->move_rotation_x = 0;
 	tmp->move_rotation_y = 0;
 	tmp->move_rotation_z = 0;
+	tmp->zoom = 0;
 	vecteur_trans = create_vecteur4((WINDOW_L / 2) - ((tmp->nb_col * TILE_WIDTH) / 2), 
 	(WINDOW_H / 2) - ((tmp->nb_line * TILE_HEIGHT) / 2), 0, 1);
+	vecteur_homo = create_vecteur4(1.0, 1.0, 1.0, 1.0);
+	m_homo = matrix_homothetie(vecteur_homo);
 	m_translation = matrix_translation(vecteur_trans);
 	m_rotationX = matrix_rotationX(55.0 * PI / 180);
 	m_rotationY = matrix_rotationY(0.0 * PI / 180);
@@ -85,6 +95,7 @@ t_vecteur4 ft_reset_transformation(int x, int y, int z, int w, int i, t_env *tmp
 	resultat = ft_cal_rotationX(resultat, m_rotationX);
 	resultat = ft_cal_rotationY(resultat, m_rotationY);
 	resultat = ft_cal_rotationZ(resultat, m_rotationZ);
+	resultat = ft_cal_homothetie(resultat, m_homo);
 	resultat = ft_cal_translation(resultat, m_translation);
 	// resultat = ft_cal_projection(resultat, m_projection);
 	return(resultat);

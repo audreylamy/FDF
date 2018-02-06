@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Deydou <Deydou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 10:19:16 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/04 15:47:04 by Deydou           ###   ########.fr       */
+/*   Updated: 2018/02/06 15:52:41 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void     ft_get_coord(char *line, t_env *tmp)
 		tmp->map[i][j][1] = i * TILE_HEIGHT;
 		tmp->map[i][j][2] = ft_getnbr(str[j]);
 		tmp->map[i][j][3] = 1;
-		// tmp->map[i][j].color = ft_strchr(str[j], ',') ?  &str[j][2] : "0xFFFFFF";
+		//tmp->map[i][j][4] = ft_strchr(str[j], ',') ? (int)&str[j][2] : (int)"0xFFFFFF";
 		j++;
 	}
 	i++;
