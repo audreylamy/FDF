@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 10:19:16 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/06 15:52:41 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/12 16:08:37 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void     ft_get_coord(char *line, t_env *tmp)
 		tmp->map[i][j][1] = i * TILE_HEIGHT;
 		tmp->map[i][j][2] = ft_getnbr(str[j]);
 		tmp->map[i][j][3] = 1;
-		//tmp->map[i][j][4] = ft_strchr(str[j], ',') ? (int)&str[j][2] : (int)"0xFFFFFF";
+		// tmp->map[i][j][4] = ft_strchr(str[j], ',') ? (int)ft_strtol(ft_strsub(str[j], ft_strlen(str[j]) - 6, 6)) : (int)ft_strtol("FFC0CB");
 		j++;
 	}
 	i++;

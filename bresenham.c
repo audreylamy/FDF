@@ -6,17 +6,17 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 18:15:41 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/05 12:00:56 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/12 16:00:36 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void ft_bre_1(t_algob *b, t_env *tmp, int x0, int y0)
+void ft_bre_1(t_algob *b, t_env *tmp, int x0, int y0, int color)
 {
 	while(b->i <= b->Dx)
 		{
-			fill_pixel(tmp, x0 + tmp->new_move_x, y0 + tmp->new_move_y,  0x00FFFF);
+			fill_pixel(tmp, x0 + tmp->new_move_x, y0 + tmp->new_move_y,  color);
 			(b->i)++;
 			x0 = x0 + b->Xincr;
 			b->ex = b->ex - b->dy;
@@ -28,11 +28,11 @@ void ft_bre_1(t_algob *b, t_env *tmp, int x0, int y0)
 		}
 }
 
-void ft_bre_2(t_algob *b, t_env *tmp, int x0, int y0)
+void ft_bre_2(t_algob *b, t_env *tmp, int x0, int y0, int color)
 {
 	while (b->i <= b->Dy)
 		{
-			fill_pixel(tmp, x0 + tmp->new_move_x, y0 + tmp->new_move_y, 0x00FFFF);
+			fill_pixel(tmp, x0 + tmp->new_move_x, y0 + tmp->new_move_y, color);
 			(b->i)++;
 			y0 = y0 + b->Yincr;
 			b->ey = b->ey - b->dx;
@@ -55,7 +55,7 @@ void init_bre(t_algob *b)
 	b->Yincr = 1;
 }
 
-void ft_bresenham(int x0, int y0, int x1, int y1, t_env *tmp)
+void ft_bresenham(int x0, int y0, int x1, int y1, t_env *tmp, int color)
 {
 	t_algob b;
 
@@ -68,7 +68,7 @@ void ft_bresenham(int x0, int y0, int x1, int y1, t_env *tmp)
 		b.Yincr = -1;
 
 	if (b.Dx > b.Dy)
-		ft_bre_1(&b, tmp, x0, y0);
+		ft_bre_1(&b, tmp, x0, y0, color);
 	else if (b.Dx < b.Dy)
-		ft_bre_2(&b, tmp, x0, y0);
+		ft_bre_2(&b, tmp, x0, y0, color);
 }

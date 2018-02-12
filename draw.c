@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Deydou <Deydou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:58:12 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/03 18:32:24 by Deydou           ###   ########.fr       */
+/*   Updated: 2018/02/12 16:10:42 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void ft_draw_line_horiz(t_env *tmp)
 	int y;
 	int x1;
 	int y1;
+	int z1;
+	// int color;
 
 	i = 0;
 	while (i < tmp->nb_line)
@@ -33,8 +35,9 @@ void ft_draw_line_horiz(t_env *tmp)
 			y = tmp->map_buffer[i][j][1];
 			x1 = tmp->map_buffer[i][j + 1][0];
 			y1 = tmp->map_buffer[i][j + 1][1];
-			//tmp->img.color = tmp->map_buffer[i][j][4];
-			ft_bresenham(x, y, x1, y1, tmp);
+			z1 = tmp->map_buffer[i][j][2];
+			// color = tmp->map_buffer[i][j][4];
+			ft_bresenham(x, y, x1, y1, tmp, 0x00FFFF);
 			j++;
 		}
 		i++;
@@ -49,6 +52,8 @@ void ft_draw_line_vertical(t_env *tmp)
 	int y;
 	int x1;
 	int y1;
+	int z1;
+	// int color;
 	
 	i = 0;
 	j = 0;
@@ -60,8 +65,9 @@ void ft_draw_line_vertical(t_env *tmp)
 			y = tmp->map_buffer[i][j][1];
 			x1 = tmp->map_buffer[i + 1][j][0];
 			y1 = tmp->map_buffer[i + 1][j][1];
-			//tmp->img.color = tmp->map_buffer[i][j][4];
-			ft_bresenham(x, y, x1, y1, tmp);
+			z1 = tmp->map_buffer[i][j][2];
+			// color = tmp->map_buffer[i][j][4];
+			ft_bresenham(x, y, x1, y1, tmp, 0x00FFFF);
 			i++;
 		}
 		i = 0;

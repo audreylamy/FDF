@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 10:39:04 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/06 14:22:50 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/12 09:37:44 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int my_key_funct(int keycode, t_env *tmp)
 			event_rotation(keycode, tmp);
 			ft_redraw_image(tmp, keycode);
 		}
-	if (keycode == ZOOM_PLUS || keycode == ZOOM_MOINS)
+	if (keycode == ZOOM_UP || keycode == ZOOM_DOWN || keycode == ZOOM_Z_UP || keycode == ZOOM_Z_DOWN) 
 	{
 		event_zoom(keycode, tmp);
 		ft_redraw_image(tmp, keycode);
@@ -83,10 +83,14 @@ void	event_rotation(int keycode, t_env *tmp)
 			tmp->move_rotation_z -= 5;
 }
 
-void event_zoom(int keycode, t_env *tmp)
+void	event_zoom(int keycode, t_env *tmp)
 {
-		if (keycode == ZOOM_PLUS)
+		if (keycode == ZOOM_UP)
 			tmp->zoom += 1.0;
-		if (keycode == ZOOM_MOINS)
+		if (keycode == ZOOM_DOWN)
 			tmp->zoom -= 1.0;
+		if (keycode == ZOOM_Z_UP)
+			tmp->zoom_z += 1.0;
+		if (keycode == ZOOM_Z_DOWN)
+			tmp->zoom_z -= 1.0;
 }

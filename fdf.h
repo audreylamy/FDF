@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 11:49:43 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/06 14:48:18 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/12 16:08:28 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@
 # define ROTATION_Y_W 13
 # define EXIT 53
 # define RESET 49
-# define ZOOM_MOINS 78
-# define ZOOM_PLUS 69
+# define ZOOM_UP 78
+# define ZOOM_DOWN 69
+# define ZOOM_Z_UP 24
+# define ZOOM_Z_DOWN 27
 
 /*DEFINE EVENTS MOUSE FUNCT*/
 # define SCROLL_UP 4
@@ -52,7 +54,12 @@
 # define CLIC_LEFT 1
 # define CLIC_MIDDLE 3
 
-//GNL
+typedef struct s_color
+{
+	unsigned int r;
+	unsigned int g;
+	unsigned int b;
+}				t_color;
 
 typedef struct	s_val
 {
@@ -96,13 +103,27 @@ typedef struct	s_env
 	int move_rotation_x;
 	int move_rotation_y;
 	int move_rotation_z;
-	float zoom;
+	int zoom;
+	int zoom_z;
+	int color_red;
+	int color_green;
+	int color_blue;
 	int nb_line;
 	int nb_col;
 }				t_env;
 
-/*PARSING*/
 int main(int argc, char **argv);
+
+/*CHECKS*/
+int ft_checks(char **argv, t_env *tmp);
+int ft_check_name_file(char *str);
+int ft_empty_file(char *str);
+int ft_check_map_rec(char *str1, t_env *tmp);
+int ft_check_data(char **argv);
+int	ft_isxdigit(char *str);
+int ft_isnumber(char *str);
+
+/*PARSING*/
 int ft_nb_line(char **argv);
 int	ft_getnbr(char *str);
 int ft_lenght(char **str);
@@ -122,14 +143,16 @@ void ft_draw_line_horiz(t_env *tmp);
 void ft_draw_line_vertical(t_env *tmp);
 void print_horiz_line(t_env *tmp, int i, int j);
 void print_vertical_line(t_env *tmp, int i, int j);
-void ft_bresenham(int x0, int y0, int x1, int y1, t_env *tmp);
-void ft_bre_1(t_algob *b, t_env *tmp, int x0, int y0);
-void ft_bre_2(t_algob *b, t_env *tmp, int x0, int y0);
+void ft_bresenham(int x0, int y0, int x1, int y1, t_env *tmp, int color);
+void ft_bre_1(t_algob *b, t_env *tmp, int x0, int y0, int color);
+void ft_bre_2(t_algob *b, t_env *tmp, int x0, int y0, int color);
 
 /*EVENT*/
 int my_key_funct(int keycode, t_env *tmp);
 int my_mouse_funct(int keycode, t_env *tmp);
 
+/*COLOR*/
+t_color ft_colorConverter(t_env *tmp, int hexValue);
 
 /*MATRIX*/
 typedef struct s_vecteur4

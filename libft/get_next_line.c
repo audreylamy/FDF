@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 17:36:19 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/06 15:56:58 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/12 09:45:26 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ int				get_next_line(const int fd, char **line)
 	}
 	if (nb == -1)
 		return (-1);
-	*line = ft_strchr(str[fd], '\n') ? ft_strdup(ft_s_to_n(str[fd])) : ft_strdup(str[fd]);
+	*line = ft_strchr(str[fd], '\n') ? ft_s_to_n(str[fd]) : ft_strdup(str[fd]);
 	if (ft_strchr(str[fd], '\n'))
-		str[fd] = ft_strdup(ft_n_to_end(str[fd]));
+		str[fd] = ft_n_to_end(str[fd]);
 	else
 	{
 		if (nb == 0 && *str[fd] == '\0')

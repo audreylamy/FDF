@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 09:31:57 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/06 13:33:23 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/12 12:39:33 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,24 @@
 
 int ft_nb_col(char **argv)
 {
-	int 	nb_line;
+	int 	nb_col;
 	int		fd;
 	char	*line;
 	char 	**str;
 
 	fd = open(argv[1], O_RDONLY);
-	nb_line = 0;
+	nb_col = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
 		str = ft_strsplit(line, ' ');
-		while (str[nb_line] != '\0')
-			nb_line++;
+		while (str[nb_col] != '\0')
+			nb_col++;
 		break;
-
 	}
-	return(nb_line);
+	while (get_next_line(fd, &line) > 0)
+	{	
+	}
+	return(nb_col);
 }
 
 int ft_nb_line(char **argv)
@@ -44,6 +46,9 @@ int ft_nb_line(char **argv)
 	{
 		nb_line++;
 	}
+	free(line);
+	if (close(fd) == -1)
+		ft_putstr("close() failed\n");
 	return(nb_line);
 }
 
