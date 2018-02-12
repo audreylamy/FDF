@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 16:05:27 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/12 15:06:08 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/12 17:16:19 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ int				get_next_line(const int fd, char **line);
 size_t			ft_strspn(const char *str1, const char *str2);
 int				ft_iswhitespace(int c);
 int    			ft_isnumber(char *str);
-long int		ft_strtol(char *line);
-size_t			ft_power(int n, int p);
+int				ft_atoi_base(const char *str, int str_base);
 
 typedef struct	s_list
 {

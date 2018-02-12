@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 10:39:04 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/12 09:37:44 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/12 17:50:12 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void ft_redraw_image(t_env *tmp, int keycode)
 {
 	mlx_clear_window(tmp->mlx, tmp->win);
 	tmp->img.img_ptr = mlx_new_image(tmp->mlx, WINDOW_L, WINDOW_H);
-	tmp->img.data = (int*)mlx_get_data_addr(tmp->img.img_ptr, &tmp->img.bpp, &tmp->img.size_bits, &tmp->img.endian);
+	tmp->img.data = mlx_get_data_addr(tmp->img.img_ptr, &tmp->img.bpp, &tmp->img.size_bits, &tmp->img.endian);
 	ft_transform_map(tmp, keycode);
  	mlx_put_image_to_window(tmp->mlx, tmp->win, tmp->img.img_ptr, 0, 0);
 }
@@ -46,6 +46,11 @@ int my_key_funct(int keycode, t_env *tmp)
 	if (keycode == ZOOM_UP || keycode == ZOOM_DOWN || keycode == ZOOM_Z_UP || keycode == ZOOM_Z_DOWN) 
 	{
 		event_zoom(keycode, tmp);
+		ft_redraw_image(tmp, keycode);
+	}
+	if (keycode == COLOR_RED || keycode == COLOR_GREEN || keycode == COLOR_BLUE) 
+	{
+		event_color(keycode, tmp);
 		ft_redraw_image(tmp, keycode);
 	}
 	if (keycode == RESET)
@@ -93,4 +98,14 @@ void	event_zoom(int keycode, t_env *tmp)
 			tmp->zoom_z += 1.0;
 		if (keycode == ZOOM_Z_DOWN)
 			tmp->zoom_z -= 1.0;
+}
+
+void	event_color(int keycode, t_env *tmp)
+{
+		if (keycode == COLOR_RED)
+			tmp->color_red += 10;
+		if (keycode == COLOR_GREEN)
+			tmp->color_green += 10;
+		if (keycode == COLOR_BLUE)
+			tmp->color_blue += 10;
 }

@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 11:49:43 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/12 16:08:28 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/12 17:50:43 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@
 # define ZOOM_Z_UP 24
 # define ZOOM_Z_DOWN 27
 
+# define COLOR_RED 15
+# define COLOR_BLUE 5
+# define COLOR_GREEN 11
+
 /*DEFINE EVENTS MOUSE FUNCT*/
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
@@ -84,7 +88,7 @@ typedef struct	s_algob
 typedef struct	s_img
 {
 	void 	*img_ptr;
-	int 	*data;
+	char 	*data;
 	int 	bpp;
 	int 	size_bits;
 	int 	endian;
@@ -150,6 +154,10 @@ void ft_bre_2(t_algob *b, t_env *tmp, int x0, int y0, int color);
 /*EVENT*/
 int my_key_funct(int keycode, t_env *tmp);
 int my_mouse_funct(int keycode, t_env *tmp);
+void	event_translation(int keycode, t_env *tmp);
+void	event_rotation(int keycode, t_env *tmp);
+void	event_zoom(int keycode, t_env *tmp);
+void	event_color(int keycode, t_env *tmp);
 
 /*COLOR*/
 t_color ft_colorConverter(t_env *tmp, int hexValue);
