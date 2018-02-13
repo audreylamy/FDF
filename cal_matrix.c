@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   cal_matrix.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Deydou <Deydou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 16:46:30 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/02 16:28:27 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/13 16:27:03 by Deydou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_vecteur4 ft_cal_translation(t_vecteur4 vecteur2, matrix4_t matrix_translation)
+t_vecteur4 ft_cal_translation(t_vecteur4 vecteur2, t_matrix4 matrix_translation)
 {
 	t_vecteur4 vec_translation;
-
+	
 	vec_translation.x1 = (vecteur2.x1 * matrix_translation.m[0][0]) + 
 	(vecteur2.y1 * matrix_translation.m[0][1]) + (vecteur2.z1 * matrix_translation.m[0][2])
 	+ (vecteur2.w1 * matrix_translation.m[0][3]);
@@ -31,7 +31,7 @@ t_vecteur4 ft_cal_translation(t_vecteur4 vecteur2, matrix4_t matrix_translation)
 	return(vec_translation);
 }
 
-t_vecteur4 ft_cal_rotationX(t_vecteur4 vecteur, matrix4_t matrix_rotationX)
+t_vecteur4 ft_cal_rotationX(t_vecteur4 vecteur, t_matrix4 matrix_rotationX)
 {
 	t_vecteur4 vec_rotationX;
 	
@@ -50,7 +50,7 @@ t_vecteur4 ft_cal_rotationX(t_vecteur4 vecteur, matrix4_t matrix_rotationX)
 	return(vec_rotationX);
 }
 
-t_vecteur4 ft_cal_rotationY(t_vecteur4 vecteur, matrix4_t matrix_rotationY)
+t_vecteur4 ft_cal_rotationY(t_vecteur4 vecteur, t_matrix4 matrix_rotationY)
 {
 	t_vecteur4 vec_rotationY;
 	
@@ -69,7 +69,7 @@ t_vecteur4 ft_cal_rotationY(t_vecteur4 vecteur, matrix4_t matrix_rotationY)
 	return(vec_rotationY);
 }
 
-t_vecteur4 ft_cal_rotationZ(t_vecteur4 vecteur, matrix4_t matrix_rotationZ)
+t_vecteur4 ft_cal_rotationZ(t_vecteur4 vecteur, t_matrix4 matrix_rotationZ)
 {
 	t_vecteur4 vec_rotationZ;
 	
@@ -88,7 +88,7 @@ t_vecteur4 ft_cal_rotationZ(t_vecteur4 vecteur, matrix4_t matrix_rotationZ)
 	return(vec_rotationZ);
 }
 
-t_vecteur4 ft_cal_homothetie(t_vecteur4 vecteur, matrix4_t matrix_homothetie)
+t_vecteur4 ft_cal_homothetie(t_vecteur4 vecteur, t_matrix4 matrix_homothetie)
 {
 	t_vecteur4 vec_homothetie;
 	
@@ -107,7 +107,7 @@ t_vecteur4 ft_cal_homothetie(t_vecteur4 vecteur, matrix4_t matrix_homothetie)
 	return(vec_homothetie);
 }
 
-t_vecteur4 ft_cal_projection(t_vecteur4 vecteur, matrix4_t matrix_projection)
+t_vecteur4 ft_cal_projection(t_vecteur4 vecteur, t_matrix4 matrix_projection)
 {
 	t_vecteur4 vec_projection;
 	

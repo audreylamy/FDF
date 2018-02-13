@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alamy <alamy@student.42.fr>                +#+  +:+       +#+         #
+#    By: Deydou <Deydou@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/11 18:07:22 by lesanche          #+#    #+#              #
-#    Updated: 2018/02/12 10:08:29 by alamy            ###   ########.fr        #
+#    Updated: 2018/02/13 18:26:34 by Deydou           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = fdf
 
 CC = gcc
 
-CFLAGS = -g -Wall -fsanitize=address
+CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
 
 LIBFT_DIR = libft
 
@@ -32,7 +32,8 @@ SRC = \
 				ft_print_matrix.c \
 				bresenham.c \
 				event.c \
-				checks.c
+				checks.c \
+				write_string.c
 
 OBJ = $(SRC:.c=.o)
 

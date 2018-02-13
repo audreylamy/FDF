@@ -3,112 +3,206 @@
 /*                                                        :::      ::::::::   */
 /*   lib_fonction_matrix.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Deydou <Deydou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 13:47:27 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/06 14:10:29 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/13 17:25:33 by Deydou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-matrix4_t  matrix4(t_matrix m) 
+t_matrix4  matrix_translation(t_vecteur4 offset)
 {
-    return (matrix4_t)
-    {
-        {{m.a1, m.a2, m.a3, m.a4},
-         {m.b1, m.b2, m.b3, m.b4},
-         {m.c1, m.c2, m.c3, m.c4},
-         {m.d1, m.d2, m.d3, m.d4}}
-    };
+	t_matrix4 matrix;
+	int i;
+	int j;
+
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			if (i == 0 && j == 3)
+				matrix.m[i][j] = offset.x1;
+			else if (i == 1 && j == 3)
+				matrix.m[i][j] = offset.y1;
+			else if (i == 2 && j == 3)
+				matrix.m[i][j] = offset.z1;
+			else if (i == 3 && j == 3)
+				matrix.m[i][j] = offset.w1;
+			else if ((i == 0 && j == 0) || (i == 1 && j == 1) || (i == 2 && j == 2))
+				matrix.m[i][j] = 1;
+			else
+				matrix.m[i][j] = 0;
+			j++;
+		}
+		i++;
+	}
+	return(matrix);
 }
 
-matrix4_t  matrix_identity(void)
+t_matrix4  matrix_rotationX(float angle)
 {
-    return matrix4((t_matrix)
-		{1, 0, 0, 0,
-		 0, 1, 0, 0,
-		 0, 0, 1, 0,
-		 0, 0, 0, 1}
-    );
+	t_matrix4 matrix;
+	int i;
+	int j;
+
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			if (i == 1 && j == 1)
+				matrix.m[i][j] = cos(angle);
+			else if (i == 2 && j == 1)
+				matrix.m[i][j] = sin(angle);
+			else if (i == 1 && j == 2)
+				matrix.m[i][j] = -sin(angle);
+			else if (i == 2 && j == 2)
+				matrix.m[i][j] = cos(angle);
+			else if ((i == 0 && j == 0) || (i == 3 && j == 3))
+				matrix.m[i][j] = 1;
+			else
+				matrix.m[i][j] = 0;
+			j++;
+		}
+		i++;
+	}
+	return(matrix);
 }
 
-/*MATRICE TRANSLATION*/
-
-matrix4_t  matrix_translation(t_vecteur4 offset)
+t_matrix4  matrix_rotationY(float angle)
 {
-    return matrix4((t_matrix)
-		{1, 0, 0, offset.x1,
-		 0, 1, 0, offset.y1,
-		 0, 0, 1, offset.z1,
-		 0, 0, 0, offset.w1}
-    );
+	t_matrix4 matrix;
+	int i;
+	int j;
+
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			if (i == 0 && j == 0)
+				matrix.m[i][j] = cos(angle);
+			else if (i == 0 && j == 2)
+				matrix.m[i][j] = sin(angle);
+			else if (i == 2 && j == 0)
+				matrix.m[i][j] = -sin(angle);
+			else if (i == 2 && j == 2)
+				matrix.m[i][j] = cos(angle);
+			else if ((i == 1 && j == 1) || (i == 3 && j == 3))
+				matrix.m[i][j] = 1;
+			else
+				matrix.m[i][j] = 0;
+			j++;
+		}
+		i++;
+	}
+	return(matrix);
 }
 
-/*MATRICE ROTATION*/
-
-matrix4_t  matrix_rotationX(float angle)
+t_matrix4  matrix_rotationZ(float angle)
 {
-    return matrix4((t_matrix)
-		{1, 0, 0, 0,
-		 0, cos(angle), -sin(angle), 0,
-		 0, sin(angle), cos(angle), 0,
-		 0, 0, 0, 1}
-    );
+	t_matrix4 matrix;
+	int i;
+	int j;
+
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			if (i == 0 && j == 0)
+				matrix.m[i][j] = cos(angle);
+			else if (i == 0 && j == 1)
+				matrix.m[i][j] = -sin(angle);
+			else if (i == 1 && j == 0)
+				matrix.m[i][j] = sin(angle);
+			else if (i == 1 && j == 1)
+				matrix.m[i][j] = cos(angle);
+			else if ((i == 2 && j == 2) || (i == 3 && j == 3))
+				matrix.m[i][j] = 1;
+			else
+				matrix.m[i][j] = 0;
+			j++;
+		}
+		i++;
+	}
+	return(matrix);
 }
 
-matrix4_t  matrix_rotationY(float angle)
+t_matrix4  matrix_homothetie(t_vecteur4 homo)
 {
-    return matrix4((t_matrix)
-		{cos(angle), 0, sin(angle), 0,
-		 0, 1, 0, 0,
-		 -sin(angle), 0, cos(angle), 0,
-		 0, 0, 0, 1}
-    );
+	t_matrix4 matrix;
+	int i;
+	int j;
+
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			if (i == 0 && j == 0)
+				matrix.m[i][j] = homo.x1;
+			else if (i == 1 && j == 1)
+				matrix.m[i][j] = homo.y1;
+			else if (i == 2 && j == 2)
+				matrix.m[i][j] = homo.z1;
+			else if (i == 3 && j == 3)
+				matrix.m[i][j] = homo.w1;
+			else
+				matrix.m[i][j] = 0;
+			j++;
+		}
+		i++;
+	}
+	return(matrix);
 }
 
-matrix4_t  matrix_rotationZ(float angle)
-{
-    return matrix4((t_matrix)
-		{cos(angle), -sin(angle), 0, 0,
-		 sin(angle), cos(angle), 0, 0,
-		 0, 0, 1, 0,
-		 0, 0, 0, 1}
-    );
-}
-
-/*MATRICE HOMOTHETIE*/
-
-matrix4_t  matrix_homothetie(t_vecteur4 homo)
-{
-    return matrix4((t_matrix)
-		{homo.x1, 0, 0, 0,
-		 0, homo.y1, 0, 0,
-		 0, 0, homo.z1, 0,
-		 0, 0, 0, homo.w1}
-    );
-}
-
-/*MATRICE PROJECTION*/
-
-matrix4_t matrix_projection(float angle, float ratio, float near, float far) 
+t_matrix4 matrix_projection(float angle, float ratio, float near, float far) 
 {
 	float f;
 	float r;
 	float nd;
 	float fd;
+	t_matrix4 matrix;
+	int i;
+	int j;
 
 	f = 1 / tan(angle / 2);
 	r = ratio;
 	nd = near;
 	fd = far;
-	
-	return matrix4((t_matrix)
-		 {f / r,          0,                0,                0,
-		 0,                f,                0,                0,
-		 0,                0,               (-fd-nd)/(nd-fd),  (2*fd*nd)/(nd-fd),
-		 0,                0,                1,                0}
-	);
+
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			if (i == 0 && j == 0)
+				matrix.m[i][j] = f / r;
+			else if (i == 1 && j == 1)
+				matrix.m[i][j] = f;
+			else if (i == 2 && j == 2)
+				matrix.m[i][j] = (-fd-nd)/(nd-fd);
+			else if (i == 2 && j == 3)
+				matrix.m[i][j] = (2*fd*nd)/(nd-fd);
+			else if ((i == 3 && j == 3) || (i == 3 && j == 2))
+				matrix.m[i][j] = 1;
+			else
+				matrix.m[i][j] = 0;
+			j++;
+		}
+		i++;
+	}
+	return(matrix);
 }
 
 t_vecteur4 create_vecteur4(int x, int y, int z, int w)

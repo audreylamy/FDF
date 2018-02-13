@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Deydou <Deydou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/31 10:39:04 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/12 17:50:12 by alamy            ###   ########.fr       */
+/*   Created: 2018/02/13 15:01:56 by Deydou            #+#    #+#             */
+/*   Updated: 2018/02/13 18:55:11 by Deydou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,17 @@ void ft_redraw_image(t_env *tmp, int keycode)
 {
 	mlx_clear_window(tmp->mlx, tmp->win);
 	tmp->img.img_ptr = mlx_new_image(tmp->mlx, WINDOW_L, WINDOW_H);
-	tmp->img.data = mlx_get_data_addr(tmp->img.img_ptr, &tmp->img.bpp, &tmp->img.size_bits, &tmp->img.endian);
+	tmp->img.data = mlx_get_data_addr(tmp->img.img_ptr, &tmp->img.bpp, 
+	&tmp->img.size_bits, &tmp->img.endian);
 	ft_transform_map(tmp, keycode);
  	mlx_put_image_to_window(tmp->mlx, tmp->win, tmp->img.img_ptr, 0, 0);
+	ft_create_string(tmp);
 }
 
 int my_key_funct(int keycode, t_env *tmp)
 {
 	printf("key event %d\n", keycode);
-	if (keycode == 53)
+	if (keycode == EXIT)
 	{
 		mlx_destroy_image(tmp->mlx, tmp->img.img_ptr);
 		exit(0);
@@ -48,9 +50,13 @@ int my_key_funct(int keycode, t_env *tmp)
 		event_zoom(keycode, tmp);
 		ft_redraw_image(tmp, keycode);
 	}
-	if (keycode == COLOR_RED || keycode == COLOR_GREEN || keycode == COLOR_BLUE) 
+	if (keycode == COLOR_RED || keycode == COLOR_GREEN || keycode == COLOR_BLUE || keycode == ALL_COLOR) 
 	{
 		event_color(keycode, tmp);
+		ft_redraw_image(tmp, keycode);
+	}
+	if (keycode == PROJECTION_1 || keycode == PROJECTION_2) 
+	{
 		ft_redraw_image(tmp, keycode);
 	}
 	if (keycode == RESET)
@@ -103,9 +109,15 @@ void	event_zoom(int keycode, t_env *tmp)
 void	event_color(int keycode, t_env *tmp)
 {
 		if (keycode == COLOR_RED)
-			tmp->color_red += 10;
+			tmp->color_red += 5;
 		if (keycode == COLOR_GREEN)
-			tmp->color_green += 10;
+			tmp->color_green += 5;
 		if (keycode == COLOR_BLUE)
-			tmp->color_blue += 10;
+			tmp->color_blue += 5;
+		if (keycode == ALL_COLOR)
+		{
+			tmp->color_red += 5;
+			tmp->color_green += 5;
+			tmp->color_blue += 5;
+		}
 }

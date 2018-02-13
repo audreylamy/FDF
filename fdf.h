@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Deydou <Deydou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 11:49:43 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/12 17:50:43 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/13 18:27:10 by Deydou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 # define BUFF_SIZE 32
-# define WINDOW_L 1500
-# define WINDOW_H 1000
+# define WINDOW_L 800
+# define WINDOW_H 600
 # define TILE_WIDTH 25
 # define TILE_HEIGHT 25
 # define PI 3.14159265359
@@ -30,6 +30,8 @@
 # include "libft/libft.h"
 
 /*DEFINE EVENTS KEY FUNCT*/
+# define EXIT 53
+# define RESET 49
 # define RIGHT 124
 # define LEFT 123
 # define UP 126
@@ -40,23 +42,17 @@
 # define ROTATION_Z_LEFT 86
 # define ROTATION_Y_A 0
 # define ROTATION_Y_W 13
-# define EXIT 53
-# define RESET 49
 # define ZOOM_UP 78
 # define ZOOM_DOWN 69
 # define ZOOM_Z_UP 24
 # define ZOOM_Z_DOWN 27
-
+# define ALL_COLOR 8
 # define COLOR_RED 15
 # define COLOR_BLUE 5
 # define COLOR_GREEN 11
 
-/*DEFINE EVENTS MOUSE FUNCT*/
-# define SCROLL_UP 4
-# define SCROLL_DOWN 5
-# define CLIC_RIGHT 2
-# define CLIC_LEFT 1
-# define CLIC_MIDDLE 3
+# define PROJECTION_1 258
+# define PROJECTION_2 36
 
 typedef struct s_color
 {
@@ -112,6 +108,7 @@ typedef struct	s_env
 	int color_red;
 	int color_green;
 	int color_blue;
+	float projection;
 	int nb_line;
 	int nb_col;
 }				t_env;
@@ -162,6 +159,9 @@ void	event_color(int keycode, t_env *tmp);
 /*COLOR*/
 t_color ft_colorConverter(t_env *tmp, int hexValue);
 
+/*STRING*/
+void ft_create_string(t_env *tmp);
+
 /*MATRIX*/
 typedef struct s_vecteur4
 {
@@ -194,29 +194,23 @@ typedef union
 		float d3;
 		float d4;
 	}	   	t_matrix;
-} matrix4_t;
+} t_matrix4;
 
-matrix4_t  matrix4(t_matrix m);
-matrix4_t  matrix_identity(void);
-matrix4_t  matrix_translation(t_vecteur4 vecteur);
-matrix4_t  matrix_homothetie(t_vecteur4 homo);
-matrix4_t  matrix_rotationX(float alpha);
-matrix4_t  matrix_rotationY(float alpha);
-matrix4_t  matrix_rotationZ(float alpha);
-matrix4_t  matrix_projection(float angle, float ratio, float near, float far); 
+t_matrix4  matrix_translation(t_vecteur4 vecteur);
+t_matrix4  matrix_homothetie(t_vecteur4 homo);
+t_matrix4  matrix_rotationX(float alpha);
+t_matrix4  matrix_rotationY(float alpha);
+t_matrix4  matrix_rotationZ(float alpha);
+t_matrix4  matrix_projection(float angle, float ratio, float near, float far); 
 t_vecteur4 create_vecteur4(int x, int y, int z, int w);
-t_vecteur4 ft_create_transformation(int x, int y, int z, int w, int i, t_env *tmp);
-t_vecteur4 ft_cal_translation(t_vecteur4 vecteur2, matrix4_t matrix_translation);
-t_vecteur4 ft_cal_rotationX(t_vecteur4 vecteur, matrix4_t matrix_rotationX);
-t_vecteur4 ft_cal_rotationY(t_vecteur4 vecteur, matrix4_t matrix_rotationY);
-t_vecteur4 ft_cal_rotationZ(t_vecteur4 vecteur, matrix4_t matrix_rotationZ);
-t_vecteur4 ft_cal_homothetie(t_vecteur4 vecteur, matrix4_t matrix_homothetie);
-t_vecteur4 ft_cal_projection(t_vecteur4 vecteur, matrix4_t matrix_homothetie);
-void ft_print_matrix(matrix4_t matrix);
-
-/*NEW_EVENTS_TRANSFORMATION*/
-void event_translation(int keycode, t_env *tmp);
-void event_rotation(int keycode, t_env *tmp);
-void event_zoom(int keycode, t_env *tmp);
+t_vecteur4 ft_create_transformation(int x, int y, int z, int w, t_env *tmp, int keycode);
+t_vecteur4 ft_reset_transformation(int x, int y, int z, int w, t_env *tmp);
+t_vecteur4 ft_cal_translation(t_vecteur4 vecteur2, t_matrix4 matrix_translation);
+t_vecteur4 ft_cal_rotationX(t_vecteur4 vecteur, t_matrix4 matrix_rotationX);
+t_vecteur4 ft_cal_rotationY(t_vecteur4 vecteur, t_matrix4 matrix_rotationY);
+t_vecteur4 ft_cal_rotationZ(t_vecteur4 vecteur, t_matrix4 matrix_rotationZ);
+t_vecteur4 ft_cal_homothetie(t_vecteur4 vecteur, t_matrix4 matrix_homothetie);
+t_vecteur4 ft_cal_projection(t_vecteur4 vecteur, t_matrix4 matrix_homothetie);
+//void ft_print_matrix(t_matrix4 matrix);
 
 #endif

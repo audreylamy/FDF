@@ -6,13 +6,13 @@
 /*   By: Deydou <Deydou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 16:48:13 by alamy             #+#    #+#             */
-/*   Updated: 2018/01/23 22:16:46 by Deydou           ###   ########.fr       */
+/*   Updated: 2018/02/13 18:04:17 by Deydou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void ft_print_matrix(matrix4_t matrix)
+void ft_print_matrix(t_matrix4 matrix)
 {
 	int i;
 	int j;
