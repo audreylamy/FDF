@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_matrix.c                                  :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/20 16:48:13 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/14 18:35:52 by alamy            ###   ########.fr       */
+/*   Created: 2018/02/14 14:34:40 by alamy             #+#    #+#             */
+/*   Updated: 2018/02/14 14:44:37 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_print_matrix(t_matrix4 matrix)
+t_color	ft_color_converter(t_env *tmp, int hexvalue)
 {
-	int i;
-	int j;
+	t_color rgbcolor;
 
-	i = 0;
-	while (i < 4)
+	if (tmp->color_red > 255 || tmp->color_green > 255 || tmp->color_blue > 255)
 	{
-		j = 0;
-		while (j < 4)
-		{
-			ft_putnbr(matrix.m[i][j]);
-			if (j == 3)
-				ft_putchar('\n');
-			j++;
-		}
-		i++;
+		tmp->color_red -= 255;
+		tmp->color_green -= 255;
+		tmp->color_blue -= 255;
 	}
+	rgbcolor.r = ((hexvalue >> 16) & 0xFF) + tmp->color_red;
+	rgbcolor.g = ((hexvalue >> 8) & 0xFF) + tmp->color_green;
+	rgbcolor.b = ((hexvalue) & 0xFF) + tmp->color_blue;
+	return (rgbcolor);
 }

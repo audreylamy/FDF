@@ -6,13 +6,13 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 17:14:38 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/12 17:16:03 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/14 14:10:46 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		test_base(const char c)
+static int	test_base(const char c)
 {
 	int		nb;
 
@@ -27,7 +27,7 @@ static int		test_base(const char c)
 	return (nb);
 }
 
-int		ft_atoi_base(const char *str, int str_base)
+int			ft_atoi_base(const char *str, int str_base)
 {
 	int		neg;
 	int		nb;

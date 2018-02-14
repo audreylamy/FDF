@@ -6,18 +6,18 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 09:31:57 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/12 12:39:33 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/14 15:02:28 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int ft_nb_col(char **argv)
+int	ft_nb_col(char **argv)
 {
-	int 	nb_col;
+	int		nb_col;
 	int		fd;
 	char	*line;
-	char 	**str;
+	char	**str;
 
 	fd = open(argv[1], O_RDONLY);
 	nb_col = 0;
@@ -26,17 +26,17 @@ int ft_nb_col(char **argv)
 		str = ft_strsplit(line, ' ');
 		while (str[nb_col] != '\0')
 			nb_col++;
-		break;
+		break ;
 	}
 	while (get_next_line(fd, &line) > 0)
-	{	
+	{
 	}
-	return(nb_col);
+	return (nb_col);
 }
 
-int ft_nb_line(char **argv)
+int	ft_nb_line(char **argv)
 {
-	int 	nb_line;
+	int		nb_line;
 	int		fd;
 	char	*line;
 
@@ -49,19 +49,19 @@ int ft_nb_line(char **argv)
 	free(line);
 	if (close(fd) == -1)
 		ft_putstr("close() failed\n");
-	return(nb_line);
+	return (nb_line);
 }
 
-int ft_lenght(char **str)
+int	ft_lenght(char **str)
 {
 	int y;
 
 	y = 0;
-	while(str[y] != '\0')
+	while (str[y] != '\0')
 	{
 		y++;
 	}
-	return(y);
+	return (y);
 }
 
 int	ft_getnbr(char *str)

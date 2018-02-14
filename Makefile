@@ -6,7 +6,7 @@
 #    By: alamy <alamy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/11 18:07:22 by lesanche          #+#    #+#              #
-#    Updated: 2018/02/14 10:16:27 by alamy            ###   ########.fr        #
+#    Updated: 2018/02/14 18:34:44 by alamy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,14 +26,20 @@ SRC = \
 				ft_print_tab.c \
 				calcul.c \
 				begin_fdf.c \
+				create_transformation.c \
+				reset_transformation.c \
 				draw.c \
-				lib_fonction_matrix.c \
-				cal_matrix.c \
+				fonction_matrix1.c \
+				fonction_matrix2.c \
+				cal_matrix1.c \
+				cal_matrix2.c \
 				ft_print_matrix.c \
 				bresenham.c \
-				event.c \
+				events_keyboard.c \
+				events_mouse.c \
 				checks.c \
-				write_string.c
+				write_string.c \
+				color.c \
 
 OBJ = $(SRC:.c=.o)
 
