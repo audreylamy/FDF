@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   begin_fdf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Deydou <Deydou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 13:43:03 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/13 18:51:10 by Deydou           ###   ########.fr       */
+/*   Updated: 2018/02/14 12:46:17 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,6 @@ void fill_pixel(t_env *tmp, int x, int y, int color)
 	}
 }
 
-// void fill_pixel(t_env *tmp, int x, int y, int color)
-//  {	
-// 	if (x >= 0 && y >= 0 && x < WINDOW_L && y < WINDOW_H)
-//  		((int*)tmp->img.data)[(y * WINDOW_L) + x] = color;
-//  }
-
  void ft_create_image(t_env *tmp)
  {
 	int keycode;
@@ -62,7 +56,7 @@ void fill_pixel(t_env *tmp, int x, int y, int color)
  	mlx_put_image_to_window(tmp->mlx, tmp->win, tmp->img.img_ptr, 0, 0);
  }
 
-t_vecteur4 ft_create_transformation(int x, int y, int z, int w, t_env *tmp, int keycode)
+t_vecteur4 ft_create_transformation(int x, int y, int z, int w, t_env *tmp)
 {
 	t_vecteur4 	vecteur_trans;
 	
@@ -79,6 +73,10 @@ t_vecteur4 ft_create_transformation(int x, int y, int z, int w, t_env *tmp, int 
         tmp->zoom += 1;
     if (tmp->zoom < 0)
         tmp->zoom += 1;  
+	if (tmp->scroll < 0)
+        tmp->scroll += 1;
+    if (tmp->scroll < 0)
+        tmp->scroll += 1;  
 	if (tmp->move_rotation_x >= 360.0)
         tmp->move_rotation_x -= 360.0;
     if (tmp->move_rotation_y >= 360.0)
@@ -90,9 +88,10 @@ t_vecteur4 ft_create_transformation(int x, int y, int z, int w, t_env *tmp, int 
 	m_translation = matrix_translation(vecteur_trans);
 	vecteur_homo = create_vecteur4(1.0 + tmp->zoom, 1.0 + tmp->zoom, 1.0 + tmp->zoom_z , 1.0);
 	m_homo = matrix_homothetie(vecteur_homo);
-	m_rotationX = matrix_rotationX((45.0 + tmp->move_rotation_x) * PI / 180);
+	m_rotationX = matrix_rotationX((45.0 + tmp->move_rotation_x + tmp->scroll) * PI / 180);
 	m_rotationY = matrix_rotationY((45.0 + tmp->move_rotation_y) * PI / 180);
 	m_rotationZ = matrix_rotationZ((0.0 + tmp->move_rotation_z) * PI / 180);
+	m_projection = matrix_projection((85.0 + tmp->projection + tmp->clic_proj) * PI / 180, WINDOW_L/WINDOW_H ,1.0, 100.0);
 	
 	resultat = create_vecteur4(x, y, z, w);
 
@@ -101,19 +100,21 @@ t_vecteur4 ft_create_transformation(int x, int y, int z, int w, t_env *tmp, int 
 	resultat = ft_cal_rotationY(resultat, m_rotationY);
 	resultat = ft_cal_rotationZ(resultat, m_rotationZ);
 	resultat = ft_cal_translation(resultat, m_translation);
-	if (keycode == PROJECTION_1)
-	{
-		tmp->projection = 100.0;
-		m_projection = matrix_projection(tmp->projection * PI / 180, WINDOW_L/WINDOW_H ,1.0, 100.0);
-		resultat = ft_cal_projection(resultat, m_projection);
-	}
-	else if (keycode == PROJECTION_2)
-	{
-		tmp->projection = 70.0;
-		m_projection = matrix_projection(tmp->projection * PI / 180, WINDOW_L/WINDOW_H ,1.0, 100.0);
-		resultat = ft_cal_projection(resultat, m_projection);
-	}
+	resultat = ft_cal_projection(resultat, m_projection);
 	return(resultat);
+}
+
+void ft_reset_event(t_env *tmp)
+{
+	tmp->new_move_x = 0;
+	tmp->new_move_y = 0;
+	tmp->move_rotation_x = 0;
+	tmp->move_rotation_y = 0;
+	tmp->move_rotation_z = 0;
+	tmp->zoom = 0;
+	tmp->zoom_z = 0;
+	tmp->projection = 0;
+	tmp->clic_proj = 0;
 }
 
 t_vecteur4 ft_reset_transformation(int x, int y, int z, int w, t_env *tmp)
@@ -125,17 +126,10 @@ t_vecteur4 ft_reset_transformation(int x, int y, int z, int w, t_env *tmp)
 	t_matrix4 	m_rotationZ;
 	t_matrix4 	m_homo;
 	t_vecteur4  vecteur_homo;
-	// t_matrix4	m_projection;
+	t_matrix4	m_projection;
 	t_vecteur4 	resultat;
 
-	tmp->new_move_x = 0;
-	tmp->new_move_y = 0;
-	tmp->move_rotation_x = 0;
-	tmp->move_rotation_y = 0;
-	tmp->move_rotation_z = 0;
-	tmp->zoom = 0;
-	tmp->zoom_z = 0;
-	tmp->projection = 0;
+	ft_reset_event(tmp);
 	vecteur_trans = create_vecteur4((WINDOW_L / 2) - ((tmp->nb_col * TILE_WIDTH) / 2), 
 	(WINDOW_H / 2) - ((tmp->nb_line * TILE_HEIGHT) / 2), 0, 1);
 	vecteur_homo = create_vecteur4(1.0, 1.0, 1.0, 1.0);
@@ -144,7 +138,7 @@ t_vecteur4 ft_reset_transformation(int x, int y, int z, int w, t_env *tmp)
 	m_rotationX = matrix_rotationX(45.0 * PI / 180);
 	m_rotationY = matrix_rotationY(45.0 * PI / 180);
 	m_rotationZ = matrix_rotationZ(0.0 * PI / 180);
-	//m_projection = matrix_projection(100.0 * PI / 180, WINDOW_L/WINDOW_H ,1.0, 100.0);
+	m_projection = matrix_projection(85.0 * PI / 180, WINDOW_L/WINDOW_H ,1.0, 100.0);
 
 	resultat = create_vecteur4(x, y, z, w);
 
@@ -153,7 +147,7 @@ t_vecteur4 ft_reset_transformation(int x, int y, int z, int w, t_env *tmp)
 	resultat = ft_cal_rotationZ(resultat, m_rotationZ);
 	resultat = ft_cal_homothetie(resultat, m_homo);
 	resultat = ft_cal_translation(resultat, m_translation);
-	// resultat = ft_cal_projection(resultat, m_projection);
+	resultat = ft_cal_projection(resultat, m_projection);
 	return(resultat);
 }
 
@@ -182,7 +176,7 @@ void ft_transform_map(t_env *tmp, int keycode)
 			if (keycode == RESET)
 				resultat = ft_reset_transformation(x0, y0, z0, w0, tmp);
 			else
-				resultat = ft_create_transformation(x0, y0, z0, w0, tmp, keycode);
+				resultat = ft_create_transformation(x0, y0, z0, w0, tmp);
 			tmp->map_buffer[i][j][0] = resultat.x1;
 			tmp->map_buffer[i][j][1] = resultat.y1;
 			tmp->map_buffer[i][j][2] = resultat.z1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Deydou <Deydou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 15:01:56 by Deydou            #+#    #+#             */
-/*   Updated: 2018/02/13 18:55:11 by Deydou           ###   ########.fr       */
+/*   Updated: 2018/02/14 12:47:31 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,9 @@ int my_key_funct(int keycode, t_env *tmp)
 		event_color(keycode, tmp);
 		ft_redraw_image(tmp, keycode);
 	}
-	if (keycode == PROJECTION_1 || keycode == PROJECTION_2) 
+	if (keycode == PROJECTION_PLUS || keycode == PROJECTION_MOINS) 
 	{
+		event_projection(keycode, tmp);
 		ft_redraw_image(tmp, keycode);
 	}
 	if (keycode == RESET)
@@ -120,4 +121,39 @@ void	event_color(int keycode, t_env *tmp)
 			tmp->color_green += 5;
 			tmp->color_blue += 5;
 		}
+}
+
+void	event_projection(int keycode, t_env *tmp)
+{
+		if (keycode == PROJECTION_PLUS)
+			tmp->projection += 10;
+		if (keycode == PROJECTION_MOINS)
+			tmp->projection -= 10;
+}
+
+int my_mouse_funct(int button, int x, int y, t_env *tmp)
+{
+	if (button == CLIC_LEFT || button == CLIC_RIGHT)
+	{	
+		event_clic(button, tmp);
+		ft_redraw_image(tmp, button);
+	}
+	if (button == SCROLL_UP || button == SCROLL_DOWN)
+	{	
+		event_clic(button, tmp);
+		ft_redraw_image(tmp, button);
+	}
+	return(0);
+}
+
+void event_clic(int button, t_env *tmp)
+{
+	if (button == CLIC_LEFT)
+		tmp->clic_proj += 10;
+	if (button == CLIC_RIGHT)
+		tmp->clic_proj -= 10;
+	if (button == SCROLL_UP)
+		tmp->scroll += 10;
+	if (button == SCROLL_DOWN)
+		tmp->scroll -= 10;
 }

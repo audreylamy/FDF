@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Deydou <Deydou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 14:09:40 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/13 18:54:41 by Deydou           ###   ########.fr       */
+/*   Updated: 2018/02/14 11:57:19 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	main(int argc, char **argv)
 		ft_parse_map(argv, &tmp);
 		ft_create_image(&tmp);
 		mlx_hook(tmp.win, 2, 0, my_key_funct, &tmp.mlx);
+		mlx_mouse_hook(tmp.win, my_mouse_funct, &tmp.mlx);
 		ft_create_string(&tmp);
-		//mlx_mouse_hook(tmp.win, my_mouse_funct, &tmp);
 		mlx_loop(tmp.mlx);
 	}
 	return (0);

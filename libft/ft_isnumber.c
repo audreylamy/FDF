@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 14:54:51 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/12 14:55:35 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/14 10:40:43 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int     ft_isnumber(char *str)
 	int i;
 
 	i = 0;
-    while (str[i] != '\0')
+    while (str[i] != '\0' && str[i] != ',')
     {
         if (ft_iswhitespace(str[i]))
              return (0);
