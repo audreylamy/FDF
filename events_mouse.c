@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 18:28:21 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/14 19:15:59 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/15 09:59:10 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	ft_redraw_image(t_env *tmp, int keycode)
 
 int		my_mouse_funct(int button, int x, int y, t_env *tmp)
 {
+	x = 0;
+	y = 0;
 	event_clic(button, tmp);
 	ft_redraw_image(tmp, button);
 	return (0);

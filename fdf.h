@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 11:49:43 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/14 19:12:58 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/15 10:15:03 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@
 # define ROTATION_Y_W 13
 # define ZOOM_UP 69
 # define ZOOM_DOWN 78
-# define ZOOM_Z_UP 24
-# define ZOOM_Z_DOWN 27
+# define ZOOM_Z_UP 92
+# define ZOOM_Z_DOWN 85
 # define ALL_COLOR 8
 # define COLOR_RED 15
 # define COLOR_BLUE 5
@@ -61,6 +61,8 @@
 
 typedef struct	s_data
 {
+	int		x;
+	int		y;
 	int		x0;
 	int		y0;
 	int		z0;
@@ -112,8 +114,8 @@ typedef struct	s_env
 	t_img	img;
 	int		***map;
 	int		***map_buffer;
-	int		new_move_y;
-	int		new_move_x;
+	int		move_y;
+	int		move_x;
 	int		move_rotation_x;
 	int		move_rotation_y;
 	int		move_rotation_z;
@@ -160,9 +162,9 @@ void			ft_draw_line_horiz(t_env *tmp);
 void			ft_draw_line_vertical(t_env *tmp);
 void			print_horiz_line(t_env *tmp, int i, int j);
 void			print_vertical_line(t_env *tmp, int i, int j);
-void			ft_bresenham(int x, int y, t_data *data, t_env *tmp);
-void			ft_bre_1(t_algob *b, t_env *tmp, int x, int y, int color);
-void			ft_bre_2(t_algob *b, t_env *tmp, int x, int y, int color);
+void			ft_bresenham(t_data *data, t_env *tmp);
+void			ft_bre_1(t_algob *b, t_env *tmp, t_data *data, int color);
+void			ft_bre_2(t_algob *b, t_env *tmp, t_data *data, int color);
 
 void			ft_redraw_image(t_env *tmp, int keycode);
 int				my_key_funct(int keycode, t_env *tmp);
@@ -198,7 +200,7 @@ t_matrix4		matrix_rotation_y(float alpha);
 t_matrix4		matrix_rotation_z(float alpha);
 t_matrix4		matrix_proj(float angle, float ratio, float near, float far);
 t_vector4		create_vector4(int x, int y, int z, int w);
-t_vector4		ft_two_transformation(t_data *data, t_env *tmp, int keycode);
+t_vector4		ft_two_transformations(t_data *data, t_env *tmp, int keycode);
 t_vector4		ft_create_transformation(t_data *data, t_env *tmp);
 t_vector4		ft_create_rot_zoom(t_vector4 vec_h, t_vector4 result, t_env *t);
 t_vector4		ft_reset_transformation(t_data *data, t_env *tmp);

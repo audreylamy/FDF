@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 15:01:56 by Deydou            #+#    #+#             */
-/*   Updated: 2018/02/14 18:42:51 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/15 10:16:55 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ int		my_key_funct(int keycode, t_env *tmp)
 void	event_translation(int keycode, t_env *tmp)
 {
 	if (keycode == UP)
-		tmp->new_move_y -= 10;
+		tmp->move_y -= 10;
 	if (keycode == DOWN)
-		tmp->new_move_y += 10;
+		tmp->move_y += 10;
 	if (keycode == RIGHT)
-		tmp->new_move_x += 10;
+		tmp->move_x += 10;
 	if (keycode == LEFT)
-		tmp->new_move_x -= 10;
+		tmp->move_x -= 10;
 }
 
 void	event_rotation(int keycode, t_env *tmp)

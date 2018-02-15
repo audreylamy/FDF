@@ -6,7 +6,7 @@
 #    By: alamy <alamy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/11 18:07:22 by lesanche          #+#    #+#              #
-#    Updated: 2018/02/14 18:34:44 by alamy            ###   ########.fr        #
+#    Updated: 2018/02/15 10:08:49 by alamy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = fdf
 
 CC = gcc
 
-CFLAGS = -g -Wall -Wextra -fsanitize=address
+CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
 
 LIBFT_DIR = libft
 
@@ -22,24 +22,24 @@ MLIBX_DIR = minilibx
 
 SRC = \
 				main.c \
-				parsing.c \
-				ft_print_tab.c \
 				calcul.c \
+				checks.c \
+				parsing.c \
 				begin_fdf.c \
 				create_transformation.c \
 				reset_transformation.c \
 				draw.c \
+				bresenham.c \
 				fonction_matrix1.c \
 				fonction_matrix2.c \
 				cal_matrix1.c \
 				cal_matrix2.c \
-				ft_print_matrix.c \
-				bresenham.c \
 				events_keyboard.c \
 				events_mouse.c \
-				checks.c \
-				write_string.c \
 				color.c \
+				write_string.c \
+				ft_print_tab.c \
+				ft_print_matrix.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 17:29:58 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/14 19:13:14 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/15 10:15:41 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void		ft_reset_event(t_env *tmp)
 {
-	tmp->new_move_x = 0;
-	tmp->new_move_y = 0;
+	tmp->move_x = 0;
+	tmp->move_y = 0;
 	tmp->move_rotation_x = 0;
 	tmp->move_rotation_y = 0;
 	tmp->move_rotation_z = 0;

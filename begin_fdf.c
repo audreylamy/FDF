@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 17:13:14 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/14 17:49:47 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/15 10:06:26 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void		ft_create_image(t_env *tmp)
 	mlx_put_image_to_window(tmp->mlx, tmp->win, tmp->img.img_ptr, 0, 0);
 }
 
-t_vector4	ft_two_transformation(t_data *data, t_env *tmp, int keycode)
+t_vector4	ft_two_transformations(t_data *data, t_env *tmp, int keycode)
 {
 	t_vector4	resultat;
 
@@ -42,7 +42,6 @@ void		ft_transform_map(t_env *tmp, int keycode)
 	t_data		data;
 	t_vector4	resultat;
 
-	data.w0 = 1;
 	i = -1;
 	while (++i < tmp->nb_line)
 	{
@@ -52,8 +51,9 @@ void		ft_transform_map(t_env *tmp, int keycode)
 			data.x0 = tmp->map[i][j][0];
 			data.y0 = tmp->map[i][j][1];
 			data.z0 = tmp->map[i][j][2];
+			data.w0 = tmp->map[i][j][3];
 			data.color = tmp->map[i][j][4];
-			resultat = ft_two_transformation(&data, tmp, keycode);
+			resultat = ft_two_transformations(&data, tmp, keycode);
 			tmp->map_buffer[i][j][0] = resultat.x1;
 			tmp->map_buffer[i][j][1] = resultat.y1;
 			tmp->map_buffer[i][j][2] = resultat.z1;
