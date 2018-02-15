@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 09:41:15 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/14 15:54:00 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/15 17:56:29 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,17 +113,17 @@ int		ft_check_data(char *str)
 		return (-1);
 	while (get_next_line(fd, &line))
 	{
-		i = 0;
+		i = -1;
 		str1 = ft_strsplit(line, ' ');
 		while (str1[++i] != '\0')
 		{
 			if (ft_isnumber(str1[i]) == 0 && ft_isxdigit(str1[i]) == 0)
 			{
-				ft_putstr("invalid data\n");
 				return (-1);
 			}
 		}
 	}
+	free(str1);
 	free(line);
 	if (ft_close_failed(fd) == -1)
 		return (-1);

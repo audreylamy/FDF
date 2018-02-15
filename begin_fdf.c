@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 17:13:14 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/15 10:06:26 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/15 17:53:32 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 void		ft_create_image(t_env *tmp)
 {
-	int			keycode;
+	char			keycode;
 
-	keycode = 0;
+	keycode = RESET;
 	tmp->img.img_ptr = mlx_new_image(tmp->mlx, WINDOW_L, WINDOW_H);
 	tmp->img.data = mlx_get_data_addr(tmp->img.img_ptr, &tmp->img.bpp,
-					&tmp->img.size_bits, &tmp->img.endian);
+	&tmp->img.size_bits, &tmp->img.endian);
 	ft_transform_map(tmp, keycode);
 	mlx_put_image_to_window(tmp->mlx, tmp->win, tmp->img.img_ptr, 0, 0);
+	ft_create_string(tmp);
 }
 
 t_vector4	ft_two_transformations(t_data *data, t_env *tmp, int keycode)

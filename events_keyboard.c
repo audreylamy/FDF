@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 15:01:56 by Deydou            #+#    #+#             */
-/*   Updated: 2018/02/15 10:16:55 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/15 17:52:01 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int		my_key_funct(int keycode, t_env *tmp)
 	if (keycode == EXIT)
 	{
 		mlx_destroy_image(tmp->mlx, tmp->img.img_ptr);
+		ft_free_map(tmp);
 		exit(1);
 	}
 	if (keycode == RESET)

@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 10:19:16 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/14 14:29:10 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/15 16:58:25 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,9 @@ void			ft_get_coord(char *line, t_env *tmp)
 		tmp->map[i][j][2] = ft_getnbr(str[j]);
 		tmp->map[i][j][3] = 1;
 		tmp->map[i][j][4] = ft_strchr(str[j], ',') ?
-		(int)ft_atoi_base(ft_sk(str[j]), 16) : (int)ft_atoi_base("FFC0CB", 16);
+		(int)ft_atoi_base(ft_sk(str[j]), 16) : (int)ft_atoi_base("DA70D6", 16);
 		j++;
 	}
 	i++;
+	free(str);
 }

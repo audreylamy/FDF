@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 18:15:41 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/15 10:19:33 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/15 16:53:20 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void	ft_bre_1(t_algob *b, t_env *tmp, t_data *data, int color)
 		fill_pixel(tmp, data->x + tmp->move_x, data->y + tmp->move_y, color);
 		(b->i)++;
 		data->x = data->x + b->xincr;
-		b->ex = b->ex - b->dy;
-		if (b->ex < 0)
+		b->nb_pix_x = b->nb_pix_x - b->dy;
+		if (b->nb_pix_x < 0)
 		{
 			data->y = data->y + b->yincr;
-			b->ex = b->ex + b->dx;
+			b->nb_pix_x = b->nb_pix_x + b->dx;
 		}
 	}
 }
@@ -50,21 +50,21 @@ void	ft_bre_2(t_algob *b, t_env *tmp, t_data *data, int color)
 		fill_pixel(tmp, data->x + tmp->move_x, data->y + tmp->move_y, color);
 		(b->i)++;
 		data->y = data->y + b->yincr;
-		b->ey = b->ey - b->dx;
-		if (b->ey < 0)
+		b->nb_pix_y = b->nb_pix_y - b->dx;
+		if (b->nb_pix_y < 0)
 		{
 			data->x = data->x + b->xincr;
-			b->ey = b->ey + b->dy;
+			b->nb_pix_y = b->nb_pix_y + b->dy;
 		}
 	}
 }
 
 void	init_bre(t_algob *b)
 {
-	b->dx = 2 * b->ex;
-	b->dy = 2 * b->ey;
-	b->px = b->ex;
-	b->py = b->ey;
+	b->dx = 2 * b->nb_pix_x;
+	b->dy = 2 * b->nb_pix_y;
+	b->px = b->nb_pix_x;
+	b->py = b->nb_pix_y;
 	b->i = 0;
 	b->xincr = 1;
 	b->yincr = 1;
@@ -74,8 +74,8 @@ void	ft_bresenham(t_data *data, t_env *tmp)
 {
 	t_algob	b;
 
-	b.ex = ft_abs(data->x0 - data->x);
-	b.ey = ft_abs(data->y0 - data->y);
+	b.nb_pix_x = ft_abs(data->x0 - data->x);
+	b.nb_pix_y = ft_abs(data->y0 - data->y);
 	init_bre(&b);
 	if (data->x > data->x0)
 		b.xincr = -1;

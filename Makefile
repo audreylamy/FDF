@@ -6,7 +6,7 @@
 #    By: alamy <alamy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/11 18:07:22 by lesanche          #+#    #+#              #
-#    Updated: 2018/02/15 10:08:49 by alamy            ###   ########.fr        #
+#    Updated: 2018/02/15 16:08:13 by alamy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,11 @@ NAME = fdf
 
 CC = gcc
 
-CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -g -Wall -Wextra -Werror
 
 LIBFT_DIR = libft
 
-MLIBX_DIR = minilibx 
+MLIBX_DIR = minilibx
 
 SRC = \
 				main.c \
@@ -34,6 +34,7 @@ SRC = \
 				fonction_matrix2.c \
 				cal_matrix1.c \
 				cal_matrix2.c \
+				free_map.c \
 				events_keyboard.c \
 				events_mouse.c \
 				color.c \

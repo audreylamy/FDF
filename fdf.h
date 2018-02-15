@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 11:49:43 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/15 10:27:22 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/15 17:51:55 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define TILE_HEIGHT 25
 # define PI 3.14159265359
 
-# include "minilibx/mlx.h"
+# include <mlx.h>
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -77,17 +77,10 @@ typedef struct	s_color
 	int		b;
 }				t_color;
 
-typedef struct	s_val
-{
-	int		i;
-	int		ret;
-	char	*tmp;
-}				t_val;
-
 typedef struct	s_algob
 {
-	float	ex;
-	float	ey;
+	float	nb_pix_x;
+	float	nb_pix_y;
 	float	dx;
 	float	dy;
 	float	px;
@@ -126,7 +119,6 @@ typedef struct	s_env
 	int		color_blue;
 	float	projection;
 	int		clic_proj;
-	int		scroll;
 	int		nb_line;
 	int		nb_col;
 }				t_env;
@@ -160,8 +152,6 @@ void			ft_get_coord(char *line, t_env *tmp);
 **IMAGES
 */
 void			ft_create_image(t_env *tmp);
-void			ft_create_new_image(t_env *tmp, int keycode);
-void			fill_pixel(t_env *tmp, int x, int y, int color);
 
 /*
 **MAP TRANSFORMATIONS
@@ -180,10 +170,12 @@ void			print_vertical_line(t_env *tmp, int i, int j);
 void			ft_bresenham(t_data *data, t_env *tmp);
 void			ft_bre_1(t_algob *b, t_env *tmp, t_data *data, int color);
 void			ft_bre_2(t_algob *b, t_env *tmp, t_data *data, int color);
+void			fill_pixel(t_env *tmp, int x, int y, int color);
 
 /*
 **EVENTS
 */
+void 			ft_free_map(t_env *tmp);
 void			ft_redraw_image(t_env *tmp, int keycode);
 int				my_key_funct(int keycode, t_env *tmp);
 int				my_mouse_funct(int button, int x, int y, t_env *tmp);
@@ -201,7 +193,7 @@ t_color			ft_color_converter(t_env *tmp, int hexvalue);
 /*
 **CREATE STRING
 */
-void			ft_create_string(t_env *tmp);
+void			ft_create_string(t_env *t);
 
 typedef struct	s_vector4
 {

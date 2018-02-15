@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 09:31:57 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/14 15:02:28 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/15 15:02:42 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	ft_nb_col(char **argv)
 	while (get_next_line(fd, &line) > 0)
 	{
 	}
+	free(line);
 	return (nb_col);
 }
 

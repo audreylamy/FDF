@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsub.c                                        :+:      :+:    :+:   */
+/*   free_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 09:43:19 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/15 14:36:56 by alamy            ###   ########.fr       */
+/*   Created: 2018/02/15 12:56:36 by alamy             #+#    #+#             */
+/*   Updated: 2018/02/15 13:17:07 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "fdf.h"
 
-char	*ft_strsub(const char *s, unsigned int start, size_t len)
+void	ft_free_map(t_env *tmp)
 {
-	char			*str;
-	unsigned int	i;
+	int i;
+	int j;
 
-	if (!s)
-		return (NULL);
 	i = 0;
-	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
-		return (NULL);
-	while ((i < len) && (s[start] != '\0'))
+	while (i < tmp->nb_line)
 	{
-		str[i] = s[start];
-		start++;
+		j = 0;
+		while (j < tmp->nb_col)
+		{
+			free(tmp->map[i][j]);
+			free(tmp->map_buffer[i][j]);
+			j++;
+		}
 		i++;
 	}
-	str[i] = '\0';
-	return (str);
+	free(tmp->map);
+	free(tmp->map_buffer);
 }

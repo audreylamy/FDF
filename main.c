@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 14:09:40 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/14 15:52:45 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/15 17:42:09 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,19 @@ int	ft_checks(char **argv, t_env *tmp)
 	if ((ft_check_map_rec(argv[1], tmp)) == -1)
 		return (-1);
 	if ((ft_check_data(argv[1])) == -1)
+	{
+		ft_putstr("invalid data\n");
 		return (-1);
+	}
 	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	t_env tmp;
+	int keycode;
 
+	keycode = 0;
 	if (argc != 2)
 	{
 		ft_putstr("too many or too few arguments\n");
@@ -68,7 +73,6 @@ int	main(int argc, char **argv)
 		ft_create_image(&tmp);
 		mlx_hook(tmp.win, 2, 0, my_key_funct, &tmp.mlx);
 		mlx_mouse_hook(tmp.win, my_mouse_funct, &tmp.mlx);
-		ft_create_string(&tmp);
 		mlx_loop(tmp.mlx);
 	}
 	return (0);

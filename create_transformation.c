@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 13:43:03 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/14 19:12:15 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/15 16:54:34 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@ void		ft_if_error_map(t_env *tmp)
 		tmp->zoom += 1;
 	if (tmp->zoom < 0)
 		tmp->zoom += 1;
-	if (tmp->scroll < 0)
-		tmp->scroll += 1;
-	if (tmp->scroll < 0)
-		tmp->scroll += 1;
 	if (tmp->move_rotation_x >= 360.0)
 		tmp->move_rotation_x -= 360.0;
 	if (tmp->move_rotation_y >= 360.0)
@@ -39,9 +35,9 @@ t_vector4	ft_create_rot_zoom(t_vector4 vec_h, t_vector4 result, t_env *t)
 	t_matrix4	m_homo;
 
 	m_homo = matrix_homothetie(vec_h);
-	m_rotation_x = matrix_rotation_x((45.0 + t->move_rotation_x + t->scroll)
+	m_rotation_x = matrix_rotation_x((30.0 + t->move_rotation_x)
 	* PI / 180);
-	m_rotation_y = matrix_rotation_y((45.0 + t->move_rotation_y) * PI / 180);
+	m_rotation_y = matrix_rotation_y((30.0 + t->move_rotation_y) * PI / 180);
 	m_rotation_z = matrix_rotation_z((0.0 + t->move_rotation_z) * PI / 180);
 	res = ft_cal_homothetie(result, m_homo);
 	res = ft_cal_rotation_x(res, m_rotation_x);
