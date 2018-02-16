@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: alamy <alamy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/12/11 18:07:22 by lesanche          #+#    #+#              #
-#    Updated: 2018/02/15 16:08:13 by alamy            ###   ########.fr        #
+#    Created: 2018/02/16 12:48:19 by alamy             #+#    #+#              #
+#    Updated: 2018/02/16 14:10:56 by alamy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,11 @@ CFLAGS = -g -Wall -Wextra -Werror
 
 LIBFT_DIR = libft
 
-MLIBX_DIR = minilibx
+MLIBX_DIR = minilibx_macos
 
 SRC = \
 				main.c \
-				calcul.c \
+				others.c \
 				checks.c \
 				parsing.c \
 				begin_fdf.c \

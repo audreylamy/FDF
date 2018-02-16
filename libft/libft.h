@@ -6,12 +6,13 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 16:05:27 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/14 14:21:38 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/16 12:42:09 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+# define BUFF_SIZE 32
 
 # include <string.h>
 # include <unistd.h>
@@ -78,6 +79,7 @@ void			ft_putnbrendl(int nb);
 char			*ft_strrev(char *str);
 
 int				get_next_line(const int fd, char **line);
+int				ft_getnbr(char *str);
 size_t			ft_strspn(const char *str1, const char *str2);
 int				ft_iswhitespace(int c);
 int				ft_isnumber(char *str);

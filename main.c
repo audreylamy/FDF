@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 14:09:40 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/15 17:42:09 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/16 12:43:50 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ int	ft_checks(char **argv, t_env *tmp)
 int	main(int argc, char **argv)
 {
 	t_env tmp;
-	int keycode;
 
-	keycode = 0;
 	if (argc != 2)
 	{
 		ft_putstr("too many or too few arguments\n");

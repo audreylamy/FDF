@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 09:31:57 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/15 15:02:42 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/16 12:41:21 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,15 @@ int	ft_nb_col(char **argv)
 	int		nb_col;
 	int		fd;
 	char	*line;
-	char	**str;
 
 	fd = open(argv[1], O_RDONLY);
-	nb_col = 0;
-	while (get_next_line(fd, &line) > 0)
-	{
-		str = ft_strsplit(line, ' ');
-		while (str[nb_col] != '\0')
-			nb_col++;
-		break ;
-	}
-	while (get_next_line(fd, &line) > 0)
-	{
-	}
+	if (ft_open_failed(fd) == -1)
+		return (-1);
+	get_next_line(fd, &line);
+	nb_col = ft_count_words(line);
 	free(line);
+	if (ft_close_failed(fd) == -1)
+		return (-1);
 	return (nb_col);
 }
 
@@ -42,10 +36,13 @@ int	ft_nb_line(char **argv)
 	char	*line;
 
 	fd = open(argv[1], O_RDONLY);
+	if (ft_open_failed(fd) == -1)
+		return (-1);
 	nb_line = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
 		nb_line++;
+		free(line);
 	}
 	free(line);
 	if (close(fd) == -1)
@@ -53,33 +50,23 @@ int	ft_nb_line(char **argv)
 	return (nb_line);
 }
 
-int	ft_lenght(char **str)
+int	ft_count_words(char *str)
 {
-	int y;
+	int		i;
+	int		count;
 
-	y = 0;
-	while (str[y] != '\0')
-	{
-		y++;
-	}
-	return (y);
-}
-
-int	ft_getnbr(char *str)
-{
-	size_t	i;
-	int		result;
-
-	result = 0;
 	i = 0;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while ((str[i] >= '0') && (str[i] <= '9'))
+	count = 0;
+	while (str[i])
 	{
-		result = (result * 10) + (str[i] - '0');
-		i++;
+		while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
+			i++;
+		if (str[i] && str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
+		{
+			while (str[i] && str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
+				i++;
+			count++;
+		}
 	}
-	if (str[0] == '-')
-		result = result * (-1);
-	return (result);
+	return (count);
 }

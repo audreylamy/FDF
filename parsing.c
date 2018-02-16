@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 10:19:16 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/15 16:58:25 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/16 13:11:10 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void			ft_parse_map(char **argv, t_env *tmp)
 		!(map_buffer = (int ***)malloc(tmp->nb_line * sizeof(int **))))
 	{
 		ft_putstr("malloc failed");
-		exit(EXIT_FAILURE);
+		exit(1);
 	}
 	tmp->map = map;
 	tmp->map_buffer = map_buffer;
@@ -80,5 +80,4 @@ void			ft_get_coord(char *line, t_env *tmp)
 		j++;
 	}
 	i++;
-	free(str);
 }

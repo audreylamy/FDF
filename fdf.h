@@ -6,13 +6,12 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 11:49:43 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/15 17:51:55 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/16 13:25:49 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# define BUFF_SIZE 32
 # define WINDOW_L 1500
 # define WINDOW_H 1000
 # define TILE_WIDTH 25
@@ -85,7 +84,6 @@ typedef struct	s_algob
 	float	dy;
 	float	px;
 	float	py;
-	float	i;
 	float	xincr;
 	float	yincr;
 }				t_algob;
@@ -131,7 +129,9 @@ int				main(int argc, char **argv);
 int				ft_checks(char **argv, t_env *tmp);
 int				ft_check_name_file(char *str);
 int				ft_empty_file(char *str);
-int				ft_check_map_rec(char *str1, t_env *tmp);
+int				ft_check_map_rec(char *str, t_env *tmp);
+int				ft_count_words(char *str);
+int				ft_lenght(char **str);
 int				ft_check_data(char *str);
 int				ft_isxdigit(char *str);
 int				ft_open_failed(int fd);
@@ -141,8 +141,6 @@ int				ft_close_failed(int fd);
 **PARSING
 */
 int				ft_nb_line(char **argv);
-int				ft_getnbr(char *str);
-int				ft_lenght(char **str);
 int				ft_nb_col(char **argv);
 void			ft_print_tab(t_env *tmp);
 void			ft_parse_map(char **argv, t_env *tmp);
@@ -175,7 +173,7 @@ void			fill_pixel(t_env *tmp, int x, int y, int color);
 /*
 **EVENTS
 */
-void 			ft_free_map(t_env *tmp);
+void			ft_free_map(t_env *tmp);
 void			ft_redraw_image(t_env *tmp, int keycode);
 int				my_key_funct(int keycode, t_env *tmp);
 int				my_mouse_funct(int button, int x, int y, t_env *tmp);

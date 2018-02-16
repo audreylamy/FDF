@@ -6,12 +6,11 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 17:36:19 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/15 16:13:16 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/16 09:54:07 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#define BUFF_SIZE 32
 
 static	char	*ft_s_to_n(char *str)
 {

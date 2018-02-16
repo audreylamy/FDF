@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/13 18:18:21 by Deydou            #+#    #+#             */
-/*   Updated: 2018/02/15 17:51:34 by alamy            ###   ########.fr       */
+/*   Created: 2018/02/16 12:48:37 by alamy             #+#    #+#             */
+/*   Updated: 2018/02/16 12:48:43 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_create_string(t_env *t)
 {
 	mlx_string_put(t->mlx, t->win, 10, 0, 16777215, "Quit : esc");
 	mlx_string_put(t->mlx, t->win, 10, 20, 16777215, "Reset : space");
-	mlx_string_put(t->mlx, t->win, 10, 40, 16777215, "Translation : < > ^ v");
+	mlx_string_put(t->mlx, t->win, 10, 40, 16777215, "Translation : arrows");
 	mlx_string_put(t->mlx, t->win, 10, 60, 16777215, "Zoom : + - (num keypad)");
 	mlx_string_put(t->mlx, t->win, 10, 80, 16777215, "Zoom Z : 9 or 3");
 	mlx_string_put(t->mlx, t->win, 10, 100, 16777215, "Rotation X : 2 or 8");

@@ -6,7 +6,7 @@
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 09:41:15 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/15 17:56:29 by alamy            ###   ########.fr       */
+/*   Updated: 2018/02/16 12:45:22 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int		ft_empty_file(char *str)
 	if (ft_open_failed(fd) == -1)
 		return (-1);
 	nb = get_next_line(fd, &line);
+	free(line);
 	if (nb == -1 || nb == 0)
 	{
 		ft_putstr("Empty file\n");
@@ -52,6 +53,7 @@ int		ft_empty_file(char *str)
 	}
 	while (get_next_line(fd, &line) > 0)
 	{
+		free(line);
 	}
 	free(line);
 	if (ft_close_failed(fd) == -1)
@@ -59,25 +61,22 @@ int		ft_empty_file(char *str)
 	return (0);
 }
 
-int		ft_check_map_rec(char *str1, t_env *tmp)
+int		ft_check_map_rec(char *str, t_env *tmp)
 {
-	int		fd;
 	char	*line;
-	char	**str;
-	int		len;
+	int		fd;
 
-	fd = open(str1, O_RDONLY);
+	fd = open(str, O_RDONLY);
 	if (ft_open_failed(fd) == -1)
 		return (-1);
 	while (get_next_line(fd, &line))
 	{
-		str = ft_strsplit(line, ' ');
-		len = ft_lenght(str);
-		if (tmp->nb_col != len)
+		if (tmp->nb_col != ft_count_words(line))
 		{
 			ft_putstr("map not rectangular\n");
 			return (-1);
 		}
+		free(line);
 	}
 	free(line);
 	if (ft_close_failed(fd) == -1)
@@ -118,12 +117,12 @@ int		ft_check_data(char *str)
 		while (str1[++i] != '\0')
 		{
 			if (ft_isnumber(str1[i]) == 0 && ft_isxdigit(str1[i]) == 0)
-			{
 				return (-1);
-			}
+			free(str1[i]);
 		}
+		free(str1);
+		free(line);
 	}
-	free(str1);
 	free(line);
 	if (ft_close_failed(fd) == -1)
 		return (-1);

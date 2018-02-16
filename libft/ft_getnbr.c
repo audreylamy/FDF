@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_map.c                                         :+:      :+:    :+:   */
+/*   ft_getnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alamy <alamy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/15 12:56:36 by alamy             #+#    #+#             */
-/*   Updated: 2018/02/16 11:43:31 by alamy            ###   ########.fr       */
+/*   Created: 2018/02/16 12:38:34 by alamy             #+#    #+#             */
+/*   Updated: 2018/02/16 12:39:15 by alamy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "libft.h"
 
-void	ft_free_map(t_env *tmp)
+int	ft_getnbr(char *str)
 {
-	int i;
-	int j;
+	size_t	i;
+	int		result;
 
+	result = 0;
 	i = 0;
-	while (i < tmp->nb_line)
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while ((str[i] >= '0') && (str[i] <= '9'))
 	{
-		j = 0;
-		while (j < tmp->nb_col)
-		{
-			free(tmp->map[i][j]);
-			free(tmp->map_buffer[i][j]);
-			j++;
-		}
+		result = (result * 10) + (str[i] - '0');
 		i++;
 	}
-	free(tmp->map);
-	free(tmp->map_buffer);
+	if (str[0] == '-')
+		result = result * (-1);
+	return (result);
 }
